@@ -14,7 +14,7 @@ public class hello {
         frame.setVisible(true);
 
         JButton b = new JButton("test");
-        b.setBounds(130, 100, 100, 40); // x, y, w, h
+        b.setBounds(WIDTH/2, 0, 100, 40); // x, y, w, h
         frame.add(b);
 
         frame.setSize(WIDTH, HEIGHT);
