@@ -1,12 +1,9 @@
-import java.awt.*;
-import javax.swing.*;
-
-public class hello {
-
-  public static int WIDTH = 500;
-  public static int HEIGHT = 400;
-
+public class Maze {
   public static void main(String[] args) {
+    drawWindow();
+  }
+
+  public static void drawWindow() {
     SwingUtilities.invokeLater(new Runnable() {
       public void run() {
         JFrame frame = new JFrame("Maze Generator");
@@ -15,8 +12,6 @@ public class hello {
         frame.setVisible(true);
 
         frame.setSize(WIDTH, HEIGHT);
-        bye printObject = new bye();
-        printObject.printBye();
       }
     });
   }
