@@ -1,4 +1,10 @@
+import javax.swing.*;
+import java.awt.*;
+
 public class Maze {
+  public static int WIDTH = 500;
+  public static int HEIGHT = 500;
+
   public static void main(String[] args) {
     drawWindow();
   }
@@ -10,7 +16,6 @@ public class Maze {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(null); // prevents auto sizing
         frame.setVisible(true);
-
         frame.setSize(WIDTH, HEIGHT);
       }
     });
