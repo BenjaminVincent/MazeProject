@@ -3,8 +3,8 @@ import java.awt.*;
 
 public class Maze {
 
-public static final int WIDTH = 1000;
-public static final int HEIGHT = 1000;
+public static final int WIDTH = 960;
+public static final int HEIGHT = 960;
 
   public static void main(String[] args) {
     drawWindow(WIDTH, HEIGHT);
