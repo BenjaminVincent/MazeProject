@@ -10,15 +10,18 @@ public class Grid extends JPanel {
     setBackground(Color.WHITE);
     g.setColor(Color.BLACK);
 
+    // Setting these to 1 will fill the cell in
+    grid2D[3][2] = 1;
+    grid2D[4][3] = 1;
 
-    //g.drawLine(CellSize, 0, CellSize, 1000);
-    // Draw columns
-    for (int i = 0; i < 960; i++) {
-      g.drawLine(i * CellSize, 0, i * CellSize, 1000);
+    // Loop through the grid
+    for (int i = 0; i < grid2D.length; i++) {
+      for (int j = 0; j < grid2D[i].length; j++) {
+        g.drawRect(i * CellSize , j * CellSize, CellSize, CellSize);
+        if (grid2D[i][j] == 1) {
+          g.fillRect(i * CellSize, j * CellSize, CellSize, CellSize);
+        }
+      }
     }
-    for (int j = 0; j < 960; j++) {
-      g.drawLine(0, j * CellSize, 1000, j * CellSize);
-    }
-
   }
 }
