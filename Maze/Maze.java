@@ -19,6 +19,9 @@ public static final int HEIGHT = 960;
         Grid test = new Grid();
         frame.add(test);
 
+        // set icon
+        ImageIcon icon = new ImageIcon("mazeicon.png");
+        frame.setIconImage(icon.getImage());
 
         //frame.setLayout(null); // prevents auto sizing
         frame.setVisible(true);
