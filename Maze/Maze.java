@@ -2,21 +2,31 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Maze {
-  public static int WIDTH = 500;
-  public static int HEIGHT = 500;
+
+public static final int WIDTH = 960;
+public static final int HEIGHT = 960;
 
   public static void main(String[] args) {
-    drawWindow();
+    drawWindow(WIDTH, HEIGHT);
   }
 
-  public static void drawWindow() {
+  public static void drawWindow(int w, int h) {
     SwingUtilities.invokeLater(new Runnable() {
       public void run() {
         JFrame frame = new JFrame("Maze Generator");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLayout(null); // prevents auto sizing
+
+        frame.setSize(w, h);
+        Grid test = new Grid();
+        frame.add(test);
+
+        // set icon
+        ImageIcon icon = new ImageIcon("mazeicon.png");
+        frame.setIconImage(icon.getImage());
+
+        //frame.setLayout(null); // prevents auto sizing
         frame.setVisible(true);
-        frame.setSize(WIDTH, HEIGHT);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
       }
     });
   }
