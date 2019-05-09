@@ -7,7 +7,7 @@ import java.awt.event.ActionEvent;
 public class Grid extends JPanel implements ActionListener {
 
   Timer t = new Timer(20, this); // this refers to ActionListener
-  int[][] grid2D = new int[20][20];
+  int[][] grid2D = new int[30][20];
   int CellSize = 40;
   int px = 0;
   int py = 0;
@@ -45,7 +45,9 @@ public class Grid extends JPanel implements ActionListener {
     grid2D[px][py] = 1;
       if (px < grid2D.length - 1) {
         px++;
-      } else if (px == grid2D.length-1 && py < grid2D.length-1) {
+        // check if we are at the end of a row
+        // if we are - begin filling next row
+      } else if (px == grid2D.length-1 && py < grid2D[0].length-1) {
         px = 0; // reset px
         py++;
       }
