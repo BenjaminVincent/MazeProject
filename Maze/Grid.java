@@ -6,8 +6,8 @@ import java.awt.event.ActionEvent;
 
 public class Grid extends JPanel implements ActionListener {
 
-  Timer t = new Timer(20, this); // this refers to ActionListener
-  int[][] grid2D = new int[30][20];
+  Timer t = new Timer(10, this); // this refers to ActionListener
+  int[][] grid2D = new int[31][21];
   int CellSize = 40;
   int px = 0;
   int py = 0;
@@ -21,7 +21,7 @@ public class Grid extends JPanel implements ActionListener {
     // 0 is WHITE
     // 1 = BLACK
     // 2 = GREEN
-    grid2D[1][1] = 2;
+    //grid2D[1][1] = 2;
 
     // Loop through the grid
     for (int i = 0; i < grid2D.length; i++) {
@@ -41,8 +41,14 @@ public class Grid extends JPanel implements ActionListener {
 
   // Update loop
   public void actionPerformed(ActionEvent e) {
-    // Set current position to black
+    // Just an interesting patteren for fun
+    if (px % 2 == 0) {
+      grid2D[px][py] = 2;
+    } else if (py % 2 == 0) {
+    grid2D[px][py] = 2;
+  } else {
     grid2D[px][py] = 1;
+  }
       if (px < grid2D.length - 1) {
         px++;
         // check if we are at the end of a row
