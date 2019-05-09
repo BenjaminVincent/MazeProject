@@ -1,22 +1,26 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-public class Grid extends JPanel {
 
+public class Grid extends JPanel implements ActionListener {
+
+  Timer t = new Timer(20, this); // this refers to ActionListener
+  int[][] grid2D = new int[20][20];
+  int CellSize = 40;
+  int px = 0;
+  int py = 0;
 
   public void paintComponent(Graphics g) {
 
-    int[][] grid2D = new int[20][20];
-    int CellSize = 40;
     super.paintComponent(g);
     setBackground(Color.WHITE);
     g.setColor(Color.BLACK);
-
+    t.start();
     // 0 is WHITE
     // 1 = BLACK
     // 2 = GREEN
-    grid2D[3][2] = 1;
-    grid2D[4][3] = 1;
     grid2D[1][1] = 2;
 
     // Loop through the grid
@@ -32,5 +36,20 @@ public class Grid extends JPanel {
         }
       }
     }
+
+  }
+
+  // Update loop
+  public void actionPerformed(ActionEvent e) {
+    // Set current position to black
+    grid2D[px][py] = 1;
+      if (px < grid2D.length - 1) {
+        px++;
+      } else if (px == grid2D.length-1 && py < grid2D.length-1) {
+        px = 0; // reset px
+        py++;
+      }
+
+    repaint();
   }
 }
