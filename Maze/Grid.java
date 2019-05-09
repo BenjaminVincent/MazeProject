@@ -1,6 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
+
 public class Grid extends JPanel {
+
 
   public void paintComponent(Graphics g) {
 
@@ -10,10 +12,12 @@ public class Grid extends JPanel {
     setBackground(Color.WHITE);
     g.setColor(Color.BLACK);
 
-    // Setting these to 1 will fill the cell in
+    // 0 is WHITE
+    // 1 = BLACK
+    // 2 = GREEN
     grid2D[3][2] = 1;
     grid2D[4][3] = 1;
-    grid2D[1][1] = 2; // 2 is green
+    grid2D[1][1] = 2;
 
     // Loop through the grid
     for (int i = 0; i < grid2D.length; i++) {
