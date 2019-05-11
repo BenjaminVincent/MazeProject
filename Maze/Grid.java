@@ -4,26 +4,29 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 
-public class Grid extends JPanel {
-  int rows;
-  int cols;
+public class Grid extends JPanel implements ActionListener {
+  int c;
+  int r;
+  Timer t = new Timer(10, this);
 
-  public Grid(int rows, int cols){
-    this.rows = rows;
-    this.cols = cols;
-    System.out.println(this.rows);
+  public Grid(int cols, int rows){
+    this.r = rows;
+    this.c = cols;
+
+    //System.out.println(r);
   }
 
-  int[][] grid2D = new int[this.cols][this.rows];
+  int[][] grid2D = new int[31][21];
   int CellSize = 40;
   int px = 0;
   int py = 0;
 
   public void paintComponent(Graphics g) {
-    System.out.println(grid2D.length);
+    //System.out.println(grid2D.length);
     super.paintComponent(g);
     setBackground(Color.WHITE);
     g.setColor(Color.BLACK);
+    t.start();
     // 0 is WHITE
     // 1 = BLACK
     // 2 = GREEN
@@ -43,9 +46,11 @@ public class Grid extends JPanel {
       }
     }
 
+    //System.out.println(grid2D.length);
+
   }
 
-  /* Update loop
+  // Update loop
   public void actionPerformed(ActionEvent e) {
     // Just an interesting patteren for fun
     if (px % 2 == 0) {
@@ -65,5 +70,5 @@ public class Grid extends JPanel {
       }
 
     repaint();
-  }*/
+  }
 }
