@@ -3,8 +3,8 @@ import java.awt.*;
 
 public class Maze {
 
-public static final int WIDTH = 1440;
-public static final int HEIGHT = 1440;
+public static final int WIDTH = 960;
+public static final int HEIGHT = 960;
 
   public static void main(String[] args) {
     drawWindow(WIDTH, HEIGHT);
@@ -18,12 +18,17 @@ public static final int HEIGHT = 1440;
         JFrame frame = new JFrame("Maze Generator");
 
         frame.setSize(w, h);
-        int cols = 21;
-        int rows = 31;
-        Grid test = new Grid(cols, rows);
+
+        Input input = new Input();
+
+        frame.add(input);
 
 
-        frame.add(test);
+
+        Grid grid = new Grid(input.c, input.r);
+
+
+        frame.add(grid);
 
         // set icon
         ImageIcon icon = new ImageIcon("mazeicon.png");
