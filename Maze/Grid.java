@@ -1,19 +1,27 @@
 import javax.swing.*;
 import java.awt.*;
-public class Grid extends JPanel {
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+
+public class Grid extends JPanel implements ActionListener {
+
+  Timer t = new Timer(10, this); // this refers to ActionListener
+  int[][] grid2D = new int[31][21];
+  int CellSize = 40;
+  int px = 0;
+  int py = 0;
 
   public void paintComponent(Graphics g) {
 
-    int[][] grid2D = new int[20][20];
-    int CellSize = 40;
     super.paintComponent(g);
     setBackground(Color.WHITE);
     g.setColor(Color.BLACK);
-
-    // Setting these to 1 will fill the cell in
-    grid2D[3][2] = 1;
-    grid2D[4][3] = 1;
-    grid2D[1][1] = 2; // 2 is green
+    t.start();
+    // 0 is WHITE
+    // 1 = BLACK
+    // 2 = GREEN
+    //grid2D[1][1] = 2;
 
     // Loop through the grid
     for (int i = 0; i < grid2D.length; i++) {
@@ -28,5 +36,28 @@ public class Grid extends JPanel {
         }
       }
     }
+
+  }
+
+  // Update loop
+  public void actionPerformed(ActionEvent e) {
+    // Just an interesting patteren for fun
+    if (px % 2 == 0) {
+      grid2D[px][py] = 2;
+    } else if (py % 2 == 0) {
+    grid2D[px][py] = 2;
+  } else {
+    grid2D[px][py] = 1;
+  }
+      if (px < grid2D.length - 1) {
+        px++;
+        // check if we are at the end of a row
+        // if we are - begin filling next row
+      } else if (px == grid2D.length-1 && py < grid2D[0].length-1) {
+        px = 0; // reset px
+        py++;
+      }
+
+    repaint();
   }
 }
