@@ -11,9 +11,7 @@ public static final int HEIGHT = 1440;
   }
 
   public static void drawWindow(int w, int h) {
-    int rows = 21;
-    int cols = 31;
-    Grid test = new Grid(rows, cols);
+
 
     SwingUtilities.invokeLater(new Runnable() {
       public void run() {
@@ -21,6 +19,10 @@ public static final int HEIGHT = 1440;
         //initialize JFrame
         JFrame frame = new JFrame("Maze Generator");
         frame.setSize(w, h);
+
+        int rows = 21;
+        int cols = 31;
+        Grid test = new Grid(cols, rows);
         frame.add(test);
         // set icon
         ImageIcon icon = new ImageIcon("mazeicon.png");
