@@ -8,13 +8,13 @@ public class Grid extends JPanel implements ActionListener {
   // Size of Grid
   int c;
   int r;
+  int[][] grid2D;
 
   public Grid(int cols, int rows) {
     this.c = cols;
     this.r = rows;
+    grid2D = new int[r][c];
   }
-
-  int[][] grid2D = new int[c][r];
   Timer t = new Timer(10, this); // this refers to ActionListener
   int CellSize = 40;
   int px = 0;
