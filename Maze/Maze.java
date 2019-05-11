@@ -23,7 +23,10 @@ public static final int HEIGHT = 1440;
         int rows = 21;
         int cols = 31;
         Grid test = new Grid(cols, rows);
+
+
         frame.add(test);
+        
         // set icon
         ImageIcon icon = new ImageIcon("mazeicon.png");
         frame.setIconImage(icon.getImage());
