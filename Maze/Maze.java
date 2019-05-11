@@ -14,6 +14,7 @@ public static final int HEIGHT = 1440;
     int rows = 21;
     int cols = 31;
     Grid test = new Grid(rows, cols);
+
     SwingUtilities.invokeLater(new Runnable() {
       public void run() {
 
