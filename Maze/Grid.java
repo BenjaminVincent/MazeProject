@@ -12,7 +12,8 @@ public class Grid extends JPanel implements ActionListener {
   public Grid(int cols, int rows){
     this.r = rows;
     this.c = cols;
-    System.out.println(r);
+
+    //System.out.println(r);
   }
 
   int[][] grid2D = new int[31][21];
