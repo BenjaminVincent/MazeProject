@@ -18,7 +18,11 @@ public static final int HEIGHT = 1440;
         JFrame frame = new JFrame("Maze Generator");
 
         frame.setSize(w, h);
-        Grid test = new Grid();
+        int cols = 31;
+        int rows = 21;
+        Grid test = new Grid(cols, rows);
+
+        
         frame.add(test);
 
         // set icon
