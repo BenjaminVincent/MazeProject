@@ -6,8 +6,8 @@ import java.text.*;
 
 public class Input extends JPanel implements PropertyChangeListener{
   // set defaults
-  int c = 20;
-  int r = 6;
+  int c = 9;
+  int r = 9;
 
 
   private JLabel colLabel;
@@ -30,13 +30,13 @@ public class Input extends JPanel implements PropertyChangeListener{
 
     colField = new JFormattedTextField();
     colField.setValue(c);
-    colField.setColumns(10);
+    colField.setColumns(5);
     colField.addPropertyChangeListener("value", this);
 
 
     rowField = new JFormattedTextField();
     rowField.setValue(r);
-    rowField.setColumns(10);
+    rowField.setColumns(5);
     rowField.addPropertyChangeListener("value", this);
 
 
