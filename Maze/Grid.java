@@ -5,24 +5,24 @@ import java.awt.event.ActionEvent;
 
 
 public class Grid extends JPanel implements ActionListener {
-  // Size of Grid
   int c;
   int r;
   int[][] grid2D;
 
-  public Grid(int cols, int rows) {
-    this.c = cols;
+  public Grid(int cols, int rows){
     this.r = rows;
-    grid2D = new int[r][c];
+    this.c = cols;
+    grid2D = new int[c][r];
   }
-  Timer t = new Timer(10, this); // this refers to ActionListener
+
+
+  Timer t = new Timer(10, this);
   int CellSize = 40;
   int px = 0;
   int py = 0;
 
-
   public void paintComponent(Graphics g) {
-
+    System.out.println(grid2D.length);
     super.paintComponent(g);
     setBackground(Color.WHITE);
     g.setColor(Color.BLACK);

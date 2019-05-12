@@ -1,10 +1,12 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Maze {
 
-public static final int WIDTH = 960;
-public static final int HEIGHT = 960;
+  public static final int WIDTH = 960;
+  public static final int HEIGHT = 960;
 
   public static void main(String[] args) {
     drawWindow(WIDTH, HEIGHT);
@@ -21,14 +23,20 @@ public static final int HEIGHT = 960;
 
         Input input = new Input();
 
-        frame.add(input);
+        frame.getContentPane().add(input);
 
+        input.b.addActionListener(new ActionListener() {
 
+            public void actionPerformed(ActionEvent arg0) {
+              System.out.println("Action");
+              Grid grid = new Grid(input.c, input.r);
+              frame.getContentPane().remove(input);
+              frame.getContentPane().add(grid);
+              frame.invalidate();
+              frame.validate();
 
-        Grid grid = new Grid(input.c, input.r);
-
-
-        frame.add(grid);
+            }
+          });
 
         // set icon
         ImageIcon icon = new ImageIcon("mazeicon.png");
