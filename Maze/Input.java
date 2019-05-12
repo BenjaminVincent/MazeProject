@@ -30,13 +30,13 @@ public class Input extends JPanel implements PropertyChangeListener{
 
     colField = new JFormattedTextField();
     colField.setValue(c);
-    colField.setColumns(5);
+    colField.setColumns(8);
     colField.addPropertyChangeListener("value", this);
 
 
     rowField = new JFormattedTextField();
     rowField.setValue(r);
-    rowField.setColumns(5);
+    rowField.setColumns(8);
     rowField.addPropertyChangeListener("value", this);
 
 
@@ -54,10 +54,10 @@ public class Input extends JPanel implements PropertyChangeListener{
 
     b = new JButton("Run");
 
-    //setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+    setBorder(BorderFactory.createEmptyBorder(80, 80, 80, 80));
     add(labelPane, BorderLayout.CENTER);
     add(fieldPane, BorderLayout.LINE_END);
-    add(b, BorderLayout.NORTH);
+    add(b, BorderLayout.SOUTH);
   }
 
   public void propertyChange(PropertyChangeEvent e) {
