@@ -23,15 +23,14 @@ public class Maze {
 
         Input input = new Input();
 
-        frame.getContentPane().add(input);
+        frame.add(input);
 
         input.b.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent arg0) {
-              System.out.println("Action");
               Grid grid = new Grid(input.c, input.r);
-              frame.getContentPane().remove(input);
-              frame.getContentPane().add(grid);
+              frame.remove(input);
+              frame.add(grid);
               frame.invalidate();
               frame.validate();
 

@@ -22,7 +22,6 @@ public class Grid extends JPanel implements ActionListener {
   int py = 0;
 
   public void paintComponent(Graphics g) {
-    System.out.println(grid2D.length);
     super.paintComponent(g);
     setBackground(Color.WHITE);
     g.setColor(Color.BLACK);
