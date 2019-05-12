@@ -18,15 +18,13 @@ public class Maze {
 
         //initialize JFrame
         JFrame frame = new JFrame("Maze Generator");
-
         frame.setSize(w, h);
-
         Input input = new Input();
-
         frame.add(input);
 
         input.b.addActionListener(new ActionListener() {
-
+          
+            //runs when the button is pressed
             public void actionPerformed(ActionEvent arg0) {
               Grid grid = new Grid(input.c, input.r);
               frame.remove(input);
@@ -35,7 +33,7 @@ public class Maze {
               frame.validate();
 
             }
-          });
+        });
 
         // set icon
         ImageIcon icon = new ImageIcon("mazeicon.png");
