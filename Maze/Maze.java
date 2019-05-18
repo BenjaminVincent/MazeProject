@@ -19,7 +19,9 @@ public class Maze {
         //initialize JFrame
         JFrame frame = new JFrame("Maze Generator");
         frame.setSize(w, h);
-        Input input = new Input();
+        Input input = new Input(WIDTH, HEIGHT);
+        System.out.println(input.winWidth);
+        System.out.println(input.winHeight);
         frame.add(input);
 
         input.b.addActionListener(new ActionListener() {

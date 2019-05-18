@@ -5,10 +5,6 @@ import java.beans.PropertyChangeEvent;
 import java.text.*;
 
 public class Input extends JPanel implements PropertyChangeListener{
-  // set defaults
-  int c = 9;
-  int r = 9;
-
 
   private JLabel colLabel;
   private JLabel rowLabel;
@@ -19,11 +15,22 @@ public class Input extends JPanel implements PropertyChangeListener{
   private JFormattedTextField colField;
   private JFormattedTextField rowField;
 
+
+  // set defaults
+  int c = 9;
+  int r = 9;
+
+  int winWidth;
+  int winHeight;
+
   JButton b;
 
-  public Input() {
+  public Input(int WIDTH, int HEIGHT) {
 
-    super(new BorderLayout());
+    super(new FlowLayout());
+
+    this.winWidth = WIDTH;
+    this.winHeight = HEIGHT;
 
     colLabel = new JLabel(colString);
     rowLabel = new JLabel(rowString);
@@ -54,10 +61,10 @@ public class Input extends JPanel implements PropertyChangeListener{
 
     b = new JButton("Run");
 
-    setBorder(BorderFactory.createEmptyBorder(80, 80, 80, 80));
-    add(labelPane, BorderLayout.CENTER);
-    add(fieldPane, BorderLayout.LINE_END);
-    add(b, BorderLayout.SOUTH);
+    setBorder(BorderFactory.createEmptyBorder(winHeight/2 - 60, 0, 0, 0));
+    add(labelPane);
+    add(fieldPane);
+    add(b);
   }
 
   public void propertyChange(PropertyChangeEvent e) {
