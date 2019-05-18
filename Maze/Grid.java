@@ -2,34 +2,49 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.Random;
 
 
 public class Grid extends JPanel implements ActionListener {
+
   int c;
   int r;
+  int px;
+  int py;
   int[][] grid2D;
+
+  enum Dir {
+    UP, // 0
+    LEFT, // 1
+    DOWN, // 2
+    RIGHT // 3
+  }
+
 
   public Grid(int cols, int rows){
     this.r = rows;
     this.c = cols;
     grid2D = new int[c][r];
+    px = getRandomInt(0, c);
+    py = getRandomInt(0, r);
+    grid2D[px][py] = 2;
   }
 
 
   Timer t = new Timer(10, this);
   int CellSize = 40;
-  int px = 0;
-  int py = 0;
 
   public void paintComponent(Graphics g) {
     super.paintComponent(g);
     setBackground(Color.WHITE);
     g.setColor(Color.BLACK);
     t.start();
+
+    //px = getRandomInt(0, c);
+    //py = getRandomInt(0, r);
     // 0 is WHITE
     // 1 = BLACK
     // 2 = GREEN
-    //grid2D[1][1] = 2;
 
     // Loop through the grid
     for (int i = 0; i < grid2D.length; i++) {
@@ -47,8 +62,17 @@ public class Grid extends JPanel implements ActionListener {
 
   }
 
+
+  // Used to find a random (px, py) starting position
+  public static int getRandomInt(int min, int max) {
+    Random r = new Random();
+    return r.nextInt(((max - 1) - min) + 1) + min;
+  }
+
+
   // Update loop
   public void actionPerformed(ActionEvent e) {
+    /*
     // Just an interesting patteren for fun
     if (px % 2 == 0) {
       grid2D[px][py] = 2;
@@ -65,6 +89,7 @@ public class Grid extends JPanel implements ActionListener {
         px = 0; // reset px
         py++;
       }
+    */
 
     repaint();
   }
