@@ -13,19 +13,16 @@ public class Grid extends JPanel implements ActionListener {
   int py; // Starting
   int cx; // Current
   int cy; // Current
+  int dir;
   int[][] grid2D;
 
-  int UP = 0;
-  int RIGHT = 1;
-  int DOWN = 2;
-  int LEFT = 3;
-
-  int[] direction = {
-    UP, // 0
-    RIGHT, // 1
-    DOWN, // 2
-    RIGHT // 3
+  String[] direction = {
+    "UP", // 0
+    "RIGHT", // 1
+    "DOWN", // 2
+    "LEFT" // 3
   };
+
 
 
   public Grid(int cols, int rows){
@@ -35,11 +32,12 @@ public class Grid extends JPanel implements ActionListener {
     px = getRandomInt(0, c);
     py = getRandomInt(0, r);
     grid2D[px][py] = 2;
-
+    cx = px;
+    cy = py;
   }
 
 
-  Timer t = new Timer(10, this);
+  Timer t = new Timer(20, this);
   int CellSize = 40;
 
   public void paintComponent(Graphics g) {
@@ -77,9 +75,24 @@ public class Grid extends JPanel implements ActionListener {
     return r.nextInt(((max - 1) - min) + 1) + min;
   }
 
-
   // Update loop
   public void actionPerformed(ActionEvent e) {
+    dir = getRandomInt(0, 4);
+    System.out.println(direction[dir]);
+
+    if (direction[dir] == "UP" && cy < grid2D.length && cy > 0 && cx < grid2D[0].length && cx > 0) {
+      cy --;
+      grid2D[cx][cy] = 1;
+    } else if (direction[dir] == "RIGHT" && cy < grid2D.length && cy > 0 && cx < grid2D[0].length && cx > 0) {
+      cx ++;
+      grid2D[cx][cy] = 1;
+    } else if (direction[dir] == "DOWN" && cy < grid2D.length && cy > 0 && cx < grid2D[0].length && cx > 0) {
+      cy++;
+      grid2D[cx][cy] = 1;
+    } else if (direction[dir] == "LEFT" && cy < grid2D.length && cy > 0 && cx < grid2D[0].length && cx > 0) {
+      cx --;
+      grid2D[cx][cy] = 1;
+    }
     /*
     // Just an interesting patteren for fun
     if (px % 2 == 0) {
