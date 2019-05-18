@@ -9,16 +9,23 @@ public class Grid extends JPanel implements ActionListener {
 
   int c;
   int r;
-  int px;
-  int py;
+  int px; // Starting
+  int py; // Starting
+  int cx; // Current
+  int cy; // Current
   int[][] grid2D;
 
-  enum Dir {
+  int UP = 0;
+  int RIGHT = 1;
+  int DOWN = 2;
+  int LEFT = 3;
+
+  int[] direction = {
     UP, // 0
-    LEFT, // 1
+    RIGHT, // 1
     DOWN, // 2
     RIGHT // 3
-  }
+  };
 
 
   public Grid(int cols, int rows){
@@ -28,6 +35,7 @@ public class Grid extends JPanel implements ActionListener {
     px = getRandomInt(0, c);
     py = getRandomInt(0, r);
     grid2D[px][py] = 2;
+
   }
 
 
