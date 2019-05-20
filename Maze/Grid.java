@@ -3,14 +3,16 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.Random;
-
+import java.util.Stack;
 
 public class Grid extends JPanel implements ActionListener {
 
-  int c;
-  int r;
+  int c; // Columns
+  int r; // Rows
+
   int px; // Starting
   int py; // Starting
+
   int cx; // Current
   int cy; // Current
   int dir;
@@ -32,6 +34,8 @@ public class Grid extends JPanel implements ActionListener {
     px = getRandomInt(0, c);
     py = getRandomInt(0, r);
     grid2D[px][py] = 2;
+
+    // Start from initial
     cx = px;
     cy = py;
   }
@@ -75,42 +79,44 @@ public class Grid extends JPanel implements ActionListener {
     return r.nextInt(((max - 1) - min) + 1) + min;
   }
 
+  // Checks bounds of grid2D for legal movement
+  public static Boolean isInside(int cx, int cy, int c, int r) {
+    //(x >= 0 && x < arr.length) && (y >= 0 && y < arr[x].length).
+    if (cx <= c && cy <= r && cx >= 0 && cy >= 0) {
+      System.out.println("TRUE");
+      return true;
+    } else {
+      System.out.println("FALSE");
+      return false;
+    }
+  }
+
   // Update loop
   public void actionPerformed(ActionEvent e) {
-    dir = getRandomInt(0, 4);
-    System.out.println(direction[dir]);
 
-    if (direction[dir] == "UP" && cy < grid2D.length && cy > 0 && cx < grid2D[0].length && cx > 0) {
-      cy --;
-      grid2D[cx][cy] = 1;
-    } else if (direction[dir] == "RIGHT" && cy < grid2D.length && cy > 0 && cx < grid2D[0].length && cx > 0) {
-      cx ++;
-      grid2D[cx][cy] = 1;
-    } else if (direction[dir] == "DOWN" && cy < grid2D.length && cy > 0 && cx < grid2D[0].length && cx > 0) {
-      cy++;
-      grid2D[cx][cy] = 1;
-    } else if (direction[dir] == "LEFT" && cy < grid2D.length && cy > 0 && cx < grid2D[0].length && cx > 0) {
-      cx --;
-      grid2D[cx][cy] = 1;
+    dir = getRandomInt(0, 4);
+  //  System.out.println(direction[dir]);
+
+    switch (direction[dir]) {
+      case "UP":
+        if (isInside(cx, cy, c, r)) cy--;
+        grid2D[cx][cy] = 1;
+        break;
+      case "RIGHT":
+        if (isInside(cx, cy, c, r)) cx++;
+        grid2D[cx][cy] = 1;
+        break;
+      case "DOWN":
+        if (isInside(cx, cy, c, r)) cy++;
+        grid2D[cx][cy] = 1;
+        break;
+      case "LEFT":
+        if (isInside(cx, cy, c, r)) cx--;
+        grid2D[cx][cy] = 1;
+        break;
+
     }
-    /*
-    // Just an interesting patteren for fun
-    if (px % 2 == 0) {
-      grid2D[px][py] = 2;
-    } else if (py % 2 == 0) {
-    grid2D[px][py] = 2;
-  } else {
-    grid2D[px][py] = 1;
-  }
-      if (px < grid2D.length - 1) {
-        px++;
-        // check if we are at the end of a row
-        // if we are - begin filling next row
-      } else if (px == grid2D.length-1 && py < grid2D[0].length-1) {
-        px = 0; // reset px
-        py++;
-      }
-    */
+
 
     repaint();
   }
