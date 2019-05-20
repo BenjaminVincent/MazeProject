@@ -81,7 +81,6 @@ public class Grid extends JPanel implements ActionListener {
 
   // Checks bounds of grid2D for legal movement
   public static Boolean isInside(int cx, int cy, int[][] grid2D) {
-    //(x >= 0 && x < arr.length) && (y >= 0 && y < arr[x].length).
     if (cx < grid2D[0].length-1 && cy < grid2D.length-1 && cx > 0 && cy > 0) {
       System.out.println("TRUE");
       return true;
