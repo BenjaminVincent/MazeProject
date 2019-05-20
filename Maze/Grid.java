@@ -80,9 +80,9 @@ public class Grid extends JPanel implements ActionListener {
   }
 
   // Checks bounds of grid2D for legal movement
-  public static Boolean isInside(int cx, int cy, int c, int r) {
+  public static Boolean isInside(int cx, int cy, int[][] grid2D) {
     //(x >= 0 && x < arr.length) && (y >= 0 && y < arr[x].length).
-    if (cx <= c && cy <= r && cx >= 0 && cy >= 0) {
+    if (cx < grid2D[0].length-1 && cy < grid2D.length-1 && cx > 0 && cy > 0) {
       System.out.println("TRUE");
       return true;
     } else {
@@ -99,19 +99,19 @@ public class Grid extends JPanel implements ActionListener {
 
     switch (direction[dir]) {
       case "UP":
-        if (isInside(cx, cy, c, r)) cy--;
+        if (isInside(cx, cy, grid2D)) cy--;
         grid2D[cx][cy] = 1;
         break;
       case "RIGHT":
-        if (isInside(cx, cy, c, r)) cx++;
+        if (isInside(cx, cy, grid2D)) cx++;
         grid2D[cx][cy] = 1;
         break;
       case "DOWN":
-        if (isInside(cx, cy, c, r)) cy++;
+        if (isInside(cx, cy, grid2D)) cy++;
         grid2D[cx][cy] = 1;
         break;
       case "LEFT":
-        if (isInside(cx, cy, c, r)) cx--;
+        if (isInside(cx, cy, grid2D)) cx--;
         grid2D[cx][cy] = 1;
         break;
 
