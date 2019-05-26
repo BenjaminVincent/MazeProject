@@ -47,8 +47,8 @@ public class Grid extends JPanel implements ActionListener {
 
   public void paintComponent(Graphics g) {
     super.paintComponent(g);
-    setBackground(Color.WHITE);
-    g.setColor(Color.BLACK);
+    setBackground(Color.BLUE);
+    g.setColor(Color.WHITE);
     t.start();
 
     // 0 is WHITE
@@ -58,15 +58,15 @@ public class Grid extends JPanel implements ActionListener {
     // Loop through the grid
     for (int i = 0; i < grid2D.length; i++) {
       for (int j = 0; j < grid2D[i].length; j++) {
-        if (i % 2 == 0) grid2D[i][j] = 1;
-        if (j % 2 == 0) grid2D[i][j] = 1;
-        g.drawRect(i * CellSize , j * CellSize, CellSize, CellSize);
+        g.setColor(Color.WHITE);
+        g.fillRect(i * CellSize * 3 + CellSize, j * CellSize * 3 + CellSize, CellSize, CellSize);
         if (grid2D[i][j] == 1) {
+          g.setColor(Color.WHITE);
           g.fillRect(i * CellSize, j * CellSize, CellSize, CellSize);
         } else if (grid2D[i][j] == 2) {
           g.setColor(Color.GREEN);
           g.fillRect(i* CellSize + 1, j * CellSize + 1, CellSize-1, CellSize-1);
-          g.setColor(Color.BLACK);
+          g.setColor(Color.WHITE);
         }
       }
     }
@@ -105,7 +105,7 @@ public class Grid extends JPanel implements ActionListener {
     dir = getRandomInt(0, 4);
 
   //  System.out.println(direction[dir]);
-
+/*
     switch (direction[dir]) {
       case "UP":
         if (isInside(cx, cy, grid2D)) cy--;
@@ -124,6 +124,7 @@ public class Grid extends JPanel implements ActionListener {
         grid2D[cx][cy] = 0;
         break;
     }
+    */
 
     repaint();
   }
