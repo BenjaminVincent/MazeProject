@@ -62,27 +62,9 @@ public class Grid extends JPanel implements ActionListener {
         // Draw rectangle at every grid2D position
         g.drawRect(i * SquareSize, j * SquareSize, SquareSize, SquareSize);
 
-        grid2D[i][0] = 1; // Set top wall
-        grid2D[0][j] = 1; // Set left wall
-
-        // manually draw Cell block
-        grid2D[1][1] = 0;
-        grid2D[1][2] = 0;
-        grid2D[2][1] = 0;
-        grid2D[2][2] = 0;
-
-        grid2D[3][1] = 1;
-        grid2D[3][2] = 1;
-        grid2D[1][3] = 1;
-        grid2D[2][3] = 1;
-        grid2D[3][3] = 1;
-
-        /*
-        for (int k = i; k <= i + CellSize; k++) {
-          for (int l = j; l <= j + CellSize; l++) {
-              if (k == i + CellSize) grid2D[k][l] = 1;
-          }
-        }*/
+        // Draw empty maze
+        if (i % CellSize == 0) grid2D[i][j] = 1;
+        else if (j % CellSize == 0) grid2D[i][j] = 1;
 
         if (grid2D[i][j] == 0) {
           g.setColor(Color.WHITE);
@@ -92,6 +74,7 @@ public class Grid extends JPanel implements ActionListener {
           g.setColor(Color.BLACK);
           g.fillRect(i * SquareSize + 1, j * SquareSize + 1, SquareSize - 1, SquareSize - 1);
           g.setColor(Color.BLACK);
+
         } else if (grid2D[i][j] == 2) {
           g.setColor(Color.GREEN);
           g.fillRect(i * SquareSize + 1, j * SquareSize + 1, SquareSize - 1, SquareSize - 1);
@@ -103,8 +86,17 @@ public class Grid extends JPanel implements ActionListener {
 
   }
 
-  public static int[][] createCellBlock(int[][] grid2D, int i, int j) {
+  public static int[][] createCellBlock(int[][] grid2D, int i, int j, int CellSize) {
+    for (int k = i; k < i + CellSize; k++) {
+      for (int l = j; l < j + CellSize; l++) {
+
+      }
+    }
     return grid2D;
+  }
+  public static int paintGreen(int position) {
+
+    return position;
   }
 
 
