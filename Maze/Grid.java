@@ -21,6 +21,9 @@ public class Grid extends JPanel implements ActionListener {
   int dir;
   int[][] grid2D;
 
+  int[] visited;
+  int count = 0;
+
   String[] direction = {
     "UP", // 0
     "RIGHT", // 1
@@ -34,15 +37,22 @@ public class Grid extends JPanel implements ActionListener {
     this.r = rows * CellSize + 1;
     this.c = cols * CellSize + 1;
     grid2D = new int[c][r];
+
+    visited = new int[c * r];
     // Set start position
     px = getRandomInt(0, cols);
     py = getRandomInt(0, rows);
 
     Stack<Integer> stack = new Stack<Integer>();
     stack.push(px);
+    count = markVisited(px, count, visited);
+    System.out.println("Count: " + count);
     stack.push(py);    //grid2D[px][py] = 2;
+    count = markVisited(py, count, visited);
     //stack.push(new Integer[][] {{px}, {py}});
     printStack(stack);
+
+    //printArray(visited);
     //Thread.currentThread().getStackTrace();
     // Start from initial
     cx = px;
@@ -104,6 +114,12 @@ public class Grid extends JPanel implements ActionListener {
     }
   }
 
+  public static void printArray(int[] a) {
+    for (int i = 0; i < a.length; i++) {
+      System.out.println(a[i]);
+    }
+  }
+
   // Used to find a random (px, py) starting position
   public static int getRandomInt(int min, int max) {
     Random r = new Random();
@@ -116,6 +132,14 @@ public class Grid extends JPanel implements ActionListener {
     } else {
       System.out.printf("%s", s);
     }
+  }
+
+  public static int markVisited(int a, int count, int[] visited) {
+    visited[count] = a;
+    System.out.println("Visited: " + visited[count]);
+    //System.out.println("Visited: " + visited[count+1]);
+    count++;
+    return count;
   }
 
   // Checks bounds of grid2D for legal movement
