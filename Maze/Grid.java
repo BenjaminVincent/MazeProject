@@ -38,7 +38,7 @@ public class Grid extends JPanel implements ActionListener {
     px = getRandomInt(0, cols);
     py = getRandomInt(0, rows);
     //grid2D[px][py] = 2;
-    
+
     // Start from initial
     cx = px;
     cy = py;
@@ -46,7 +46,8 @@ public class Grid extends JPanel implements ActionListener {
 
 
   Timer t = new Timer(20, this);
-
+  int SquareSize = 20;
+  int CellSize = 3;
 
   public void paintComponent(Graphics g) {
     super.paintComponent(g);
@@ -87,29 +88,11 @@ public class Grid extends JPanel implements ActionListener {
 
     for (int i = px * CellSize + 1; i < px * CellSize + CellSize; i++) {
       for (int j = py * CellSize + 1; j < py * CellSize + CellSize; j++) {
-        System.out.println(py + " " + px);
         g.setColor(Color.GREEN);
         g.fillRect(i * SquareSize + 1, j * SquareSize + 1, SquareSize - 1, SquareSize - 1);
       }
     }
-
-
-
   }
-
-  public static int[][] createCellBlock(int[][] grid2D, int i, int j, int CellSize) {
-    for (int k = i; k < i + CellSize; k++) {
-      for (int l = j; l < j + CellSize; l++) {
-
-      }
-    }
-    return grid2D;
-  }
-  public static int paintGreen(int position) {
-
-    return position;
-  }
-
 
   // Used to find a random (px, py) starting position
   public static int getRandomInt(int min, int max) {
@@ -117,12 +100,6 @@ public class Grid extends JPanel implements ActionListener {
     return r.nextInt(((max - 1) - min) + 1) + min;
   }
 
-/*
-  public static int getStart(int min, int max) [
-    Random r = new Random();
-
-  ]
-*/
 
   // Checks bounds of grid2D for legal movement
   public static Boolean isInside(int cx, int cy, int[][] grid2D) {
