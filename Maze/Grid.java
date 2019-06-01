@@ -77,7 +77,8 @@ public class Grid extends JPanel implements ActionListener {
         grid2D[2][3] = 1;
         grid2D[3][3] = 1;
 
-        /*for (int k = i; k <= i + CellSize; k++) {
+        /*
+        for (int k = i; k <= i + CellSize; k++) {
           for (int l = j; l <= j + CellSize; l++) {
               if (k == i + CellSize) grid2D[k][l] = 1;
           }
@@ -89,11 +90,11 @@ public class Grid extends JPanel implements ActionListener {
           g.setColor(Color.BLACK);
         } else if (grid2D[i][j] == 1) {
           g.setColor(Color.BLACK);
-          g.fillRect(i * SquareSize + 1, j * SquareSize + 1, SquareSize, SquareSize);
+          g.fillRect(i * SquareSize + 1, j * SquareSize + 1, SquareSize - 1, SquareSize - 1);
           g.setColor(Color.BLACK);
         } else if (grid2D[i][j] == 2) {
           g.setColor(Color.GREEN);
-          g.fillRect(i * SquareSize + 1, j * SquareSize + 1, SquareSize, SquareSize);
+          g.fillRect(i * SquareSize + 1, j * SquareSize + 1, SquareSize - 1, SquareSize - 1);
           g.setColor(Color.BLACK);
         }
       }
@@ -103,7 +104,7 @@ public class Grid extends JPanel implements ActionListener {
   }
 
   public static int[][] createCellBlock(int[][] grid2D, int i, int j) {
-
+    return grid2D;
   }
 
 
