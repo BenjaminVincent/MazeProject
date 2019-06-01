@@ -17,8 +17,8 @@ public class Input extends JPanel implements PropertyChangeListener{
 
 
   // set defaults
-  int c = 22;
-  int r = 16;
+  int c = 2;
+  int r = 2;
 
   int winWidth;
   int winHeight;

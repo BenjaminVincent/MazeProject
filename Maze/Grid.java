@@ -18,6 +18,9 @@ public class Grid extends JPanel implements ActionListener {
   int dir;
   int[][] grid2D;
 
+  int SquareSize;
+  int CellSize = 4;
+
   String[] direction = {
     "UP", // 0
     "RIGHT", // 1
@@ -32,10 +35,10 @@ public class Grid extends JPanel implements ActionListener {
     this.c = cols * CellSize + 1;
     grid2D = new int[c][r];
     // Set start position
-    px = getRandomInt(0, cols-1);
-    py = getRandomInt(0, rows-1);
+    px = getRandomInt(0, cols);
+    py = getRandomInt(0, rows);
     //grid2D[px][py] = 2;
-
+    
     // Start from initial
     cx = px;
     cy = py;
@@ -43,8 +46,7 @@ public class Grid extends JPanel implements ActionListener {
 
 
   Timer t = new Timer(20, this);
-  int SquareSize = 20;
-  int CellSize = 4;
+
 
   public void paintComponent(Graphics g) {
     super.paintComponent(g);
@@ -83,8 +85,9 @@ public class Grid extends JPanel implements ActionListener {
       }
     }
 
-    for (int i = py * CellSize + 1; i < py * CellSize + CellSize; i++) {
-      for (int j = px * CellSize + 1; j < px * CellSize + CellSize; j++) {
+    for (int i = px * CellSize + 1; i < px * CellSize + CellSize; i++) {
+      for (int j = py * CellSize + 1; j < py * CellSize + CellSize; j++) {
+        System.out.println(py + " " + px);
         g.setColor(Color.GREEN);
         g.fillRect(i * SquareSize + 1, j * SquareSize + 1, SquareSize - 1, SquareSize - 1);
       }
