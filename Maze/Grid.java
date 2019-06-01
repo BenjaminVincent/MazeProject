@@ -32,8 +32,8 @@ public class Grid extends JPanel implements ActionListener {
     this.c = cols;
     grid2D = new int[c][r];
     // Set start position
-    px = getRandomInt(0, c);
-    py = getRandomInt(0, r);
+    px = getRandomInt(1, c-1);
+    py = getRandomInt(1, r-1);
     grid2D[px][py] = 2;
 
     // Start from initial
@@ -44,7 +44,7 @@ public class Grid extends JPanel implements ActionListener {
 
   Timer t = new Timer(20, this);
   int SquareSize = 20;
-  int CellSize = 2;
+  int CellSize = 3;
 
   public void paintComponent(Graphics g) {
     super.paintComponent(g);
@@ -59,19 +59,50 @@ public class Grid extends JPanel implements ActionListener {
     // Loop through the grid
     for (int i = 0; i < grid2D.length; i++) {
       for (int j = 0; j < grid2D[i].length; j++) {
-        g.setColor(Color.WHITE);
-        g.fillRect(i * SquareSize, j * SquareSize, SquareSize, SquareSize);
-        if (grid2D[i][j] == 1) {
+        // Draw rectangle at every grid2D position
+        g.drawRect(i * SquareSize, j * SquareSize, SquareSize, SquareSize);
+
+        grid2D[i][0] = 1; // Set top wall
+        grid2D[0][j] = 1; // Set left wall
+
+        // manually draw Cell block
+        grid2D[1][1] = 0;
+        grid2D[1][2] = 0;
+        grid2D[2][1] = 0;
+        grid2D[2][2] = 0;
+
+        grid2D[3][1] = 1;
+        grid2D[3][2] = 1;
+        grid2D[1][3] = 1;
+        grid2D[2][3] = 1;
+        grid2D[3][3] = 1;
+
+        /*for (int k = i; k <= i + CellSize; k++) {
+          for (int l = j; l <= j + CellSize; l++) {
+              if (k == i + CellSize) grid2D[k][l] = 1;
+          }
+        }*/
+
+        if (grid2D[i][j] == 0) {
           g.setColor(Color.WHITE);
-          g.fillRect(i * SquareSize, j * SquareSize, SquareSize, SquareSize);
+          g.fillRect(i * SquareSize + 1, j * SquareSize + 1, SquareSize-1, SquareSize-1);
+          g.setColor(Color.BLACK);
+        } else if (grid2D[i][j] == 1) {
+          g.setColor(Color.BLACK);
+          g.fillRect(i * SquareSize + 1, j * SquareSize + 1, SquareSize, SquareSize);
+          g.setColor(Color.BLACK);
         } else if (grid2D[i][j] == 2) {
           g.setColor(Color.GREEN);
-          g.fillRect(i* SquareSize, j * SquareSize, SquareSize, SquareSize);
-          g.setColor(Color.WHITE);
+          g.fillRect(i * SquareSize + 1, j * SquareSize + 1, SquareSize, SquareSize);
+          g.setColor(Color.BLACK);
         }
       }
     }
 
+
+  }
+
+  public static int[][] createCellBlock(int[][] grid2D, int i, int j) {
 
   }
 
