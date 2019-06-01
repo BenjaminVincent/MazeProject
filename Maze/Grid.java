@@ -94,11 +94,6 @@ public class Grid extends JPanel implements ActionListener {
     }
     return grid2D;
   }
-  public static int paintGreen(int position) {
-
-    return position;
-  }
-
 
   // Used to find a random (px, py) starting position
   public static int getRandomInt(int min, int max) {
