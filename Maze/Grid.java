@@ -4,6 +4,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.Random;
 import java.util.Stack;
+import java.util.Arrays;
+import java.util.Collections;
+import javafx.util.Pair;
 
 public class Grid extends JPanel implements ActionListener {
 
@@ -34,8 +37,13 @@ public class Grid extends JPanel implements ActionListener {
     // Set start position
     px = getRandomInt(0, cols);
     py = getRandomInt(0, rows);
-    //grid2D[px][py] = 2;
 
+    Stack<Integer> stack = new Stack<Integer>();
+    stack.push(px);
+    stack.push(py);    //grid2D[px][py] = 2;
+    //stack.push(new Integer[][] {{px}, {py}});
+    printStack(stack);
+    //Thread.currentThread().getStackTrace();
     // Start from initial
     cx = px;
     cy = py;
@@ -51,6 +59,7 @@ public class Grid extends JPanel implements ActionListener {
     setBackground(Color.WHITE);
     g.setColor(Color.BLACK);
     t.start();
+
 
     // 0 is WHITE
     // 1 = BLACK
@@ -79,6 +88,10 @@ public class Grid extends JPanel implements ActionListener {
           g.setColor(Color.GREEN);
           g.fillRect(i * SquareSize + 1, j * SquareSize + 1, SquareSize - 1, SquareSize - 1);
           g.setColor(Color.BLACK);
+        } else if (grid2D[i][j] == 3) {
+          g.setColor(Color.BLUE);
+          g.fillRect(i * SquareSize + 1, j * SquareSize + 1, SquareSize - 1, SquareSize - 1);
+          g.setColor(Color.BLACK);
         }
       }
     }
@@ -97,6 +110,13 @@ public class Grid extends JPanel implements ActionListener {
     return r.nextInt(((max - 1) - min) + 1) + min;
   }
 
+  public static void printStack(Stack<Integer> s) {
+    if (s.isEmpty()) {
+      System.out.println("Empty");
+    } else {
+      System.out.printf("%s", s);
+    }
+  }
 
   // Checks bounds of grid2D for legal movement
   public static Boolean isInside(int cx, int cy, int[][] grid2D) {
@@ -113,6 +133,7 @@ public class Grid extends JPanel implements ActionListener {
   public void actionPerformed(ActionEvent e) {
 
     dir = getRandomInt(0, 4);
+
 
   //  System.out.println(direction[dir]);
 /*
