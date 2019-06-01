@@ -43,12 +43,13 @@ public class Grid extends JPanel implements ActionListener {
 
 
   Timer t = new Timer(20, this);
-  int CellSize = 20;
+  int SquareSize = 20;
+  int CellSize = 2;
 
   public void paintComponent(Graphics g) {
     super.paintComponent(g);
-    setBackground(Color.BLUE);
-    g.setColor(Color.WHITE);
+    setBackground(Color.WHITE);
+    g.setColor(Color.BLACK);
     t.start();
 
     // 0 is WHITE
@@ -59,13 +60,13 @@ public class Grid extends JPanel implements ActionListener {
     for (int i = 0; i < grid2D.length; i++) {
       for (int j = 0; j < grid2D[i].length; j++) {
         g.setColor(Color.WHITE);
-        g.fillRect(i * CellSize * 3 + CellSize, j * CellSize * 3 + CellSize, CellSize, CellSize);
+        g.fillRect(i * SquareSize, j * SquareSize, SquareSize, SquareSize);
         if (grid2D[i][j] == 1) {
           g.setColor(Color.WHITE);
-          g.fillRect(i * CellSize, j * CellSize, CellSize, CellSize);
+          g.fillRect(i * SquareSize, j * SquareSize, SquareSize, SquareSize);
         } else if (grid2D[i][j] == 2) {
           g.setColor(Color.GREEN);
-          g.fillRect(i* CellSize + 1, j * CellSize + 1, CellSize-1, CellSize-1);
+          g.fillRect(i* SquareSize, j * SquareSize, SquareSize, SquareSize);
           g.setColor(Color.WHITE);
         }
       }
