@@ -38,7 +38,7 @@ public class Grid extends JPanel implements ActionListener {
     this.c = cols * CellSize + 1;
     grid2D = new int[c][r];
 
-    visited = new int[c * r];
+    visited = new int[rows * cols];
     // Set start position
     px = getRandomInt(0, cols);
     py = getRandomInt(0, rows);
@@ -49,11 +49,11 @@ public class Grid extends JPanel implements ActionListener {
     System.out.println("Count: " + count);
     stack.push(py);    //grid2D[px][py] = 2;
     count = markVisited(py, count, visited);
+    System.out.println("Count: " + count);
     //stack.push(new Integer[][] {{px}, {py}});
     printStack(stack);
 
-    //printArray(visited);
-    //Thread.currentThread().getStackTrace();
+    printArray(visited);
     // Start from initial
     cx = px;
     cy = py;
@@ -115,8 +115,9 @@ public class Grid extends JPanel implements ActionListener {
   }
 
   public static void printArray(int[] a) {
+    System.out.println();
     for (int i = 0; i < a.length; i++) {
-      System.out.println(a[i]);
+      System.out.print(a[i]);
     }
   }
 
@@ -160,27 +161,24 @@ public class Grid extends JPanel implements ActionListener {
 
 
   //  System.out.println(direction[dir]);
-/*
     switch (direction[dir]) {
       case "UP":
-        if (isInside(cx, cy, grid2D)) cy--;
-        grid2D[cx][cy] = 0;
+        if (isInside(cx, cy, grid2D)) cy =- 3;
+        grid2D[cx][cy] = 2;
         break;
       case "RIGHT":
-        if (isInside(cx, cy, grid2D)) cx++;
-        grid2D[cx][cy] = 0;
+        if (isInside(cx, cy, grid2D)) cx =+ 3;
+        grid2D[cx][cy] = 2;
         break;
       case "DOWN":
-        if (isInside(cx, cy, grid2D)) cy++;
-        grid2D[cx][cy] = 0;
+        if (isInside(cx, cy, grid2D)) cy =+ 3;
+        grid2D[cx][cy] = 2;
         break;
       case "LEFT":
-        if (isInside(cx, cy, grid2D)) cx--;
-        grid2D[cx][cy] = 0;
+        if (isInside(cx, cy, grid2D)) cx =- 3;
+        grid2D[cx][cy] = 2;
         break;
     }
-    */
-
     repaint();
   }
 }
