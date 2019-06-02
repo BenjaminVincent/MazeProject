@@ -149,7 +149,7 @@ public class Grid extends JPanel implements ActionListener {
       System.out.println("TRUE");
       return true;
     } else {
-      System.out.println("FALSE");
+      //System.out.println("FALSE");
       return false;
     }
   }
@@ -159,23 +159,22 @@ public class Grid extends JPanel implements ActionListener {
 
     dir = getRandomInt(0, 4);
 
-
   //  System.out.println(direction[dir]);
     switch (direction[dir]) {
       case "UP":
-        if (isInside(cx, cy, grid2D)) cy =- 3;
+        if (isInside(cx, cy, grid2D)) px++;
         grid2D[cx][cy] = 2;
         break;
       case "RIGHT":
-        if (isInside(cx, cy, grid2D)) cx =+ 3;
+        if (isInside(cx, cy, grid2D)) px++;
         grid2D[cx][cy] = 2;
         break;
       case "DOWN":
-        if (isInside(cx, cy, grid2D)) cy =+ 3;
+        if (isInside(cx, cy, grid2D)) py++;
         grid2D[cx][cy] = 2;
         break;
       case "LEFT":
-        if (isInside(cx, cy, grid2D)) cx =- 3;
+        if (isInside(cx, cy, grid2D)) px++;
         grid2D[cx][cy] = 2;
         break;
     }
