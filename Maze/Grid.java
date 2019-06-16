@@ -17,13 +17,13 @@ public class Grid extends JPanel implements ActionListener {
 
   int cx; // Current
   int cy; // Current
-  int dir;
+  String dir;
   int[][] grid2D; // 2D array for maze display
   Cell[][] mazeGrid; // 2D array for maze generation
   Cell current;
   int SquareSize = 20;
   int CellSize = 4;
-  Timer t = new Timer(20, this);
+  Timer t = new Timer(100, this);
 
 
 
@@ -77,20 +77,23 @@ public class Grid extends JPanel implements ActionListener {
           g.setColor(Color.BLACK);
           g.fillRect(i * SquareSize + 1, j * SquareSize + 1, SquareSize - 1, SquareSize - 1);
           g.setColor(Color.BLACK);
-
-        } else if (grid2D[i][j] == 2) {
-          g.setColor(Color.GREEN);
-          g.fillRect(i * SquareSize + 1, j * SquareSize + 1, SquareSize - 1, SquareSize - 1);
-          g.setColor(Color.BLACK);
-        } else if (grid2D[i][j] == 3) {
-          g.setColor(Color.BLUE);
-          g.fillRect(i * SquareSize + 1, j * SquareSize + 1, SquareSize - 1, SquareSize - 1);
-          g.setColor(Color.BLACK);
         }
       }
     }
-    colourSquare(px, py, Color.GREEN, g);
-    removeBorder(px, py, "UP", g);
+
+    for (int i = 0; i < mazeGrid.length; i++) {
+      for (int j = 0; j < mazeGrid[i].length; j++) {
+        if (mazeGrid[i][j].isVisited()) {
+          colourSquare(px, py, Color.BLUE, g);
+        }
+        for (String d : mazeGrid[i][j].getUsedDirections()) {
+          removeBorder(j, i, d, g);
+        }
+        if (i == cy && j == cx) {
+          colourSquare(cx, cy, Color.GREEN, g);
+        }
+      }
+    }
   }
 
   public void colourSquare(int x, int y, Color color, Graphics g) {
@@ -152,10 +155,8 @@ public class Grid extends JPanel implements ActionListener {
 
   // Update loop
   public void actionPerformed(ActionEvent e) {
-
-    /* current = mazeGrid[cx][cy];
-    current.visited();
-    dir = current.direction */
+    dir = mazeGrid[cx][cy].getDirection();
+    System.out.println(dir);
     repaint();
   }
 }
