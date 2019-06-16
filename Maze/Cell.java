@@ -7,21 +7,21 @@ public class Cell {
   private int y; // y position of cell on maze grid
   private ArrayList<String> directions = new ArrayList<String>();
 
-  public Cell(int c, int r, int cols, int rows) {
-    this.x = c;
-    this.y = r;
+  public Cell(int x, int y, int cols, int rows) {
+    this.x = x;
+    this.y = y;
 
     // calculate possible directions of travel and add to list of directions
-    if (r != 0) {
+    if (y != 0) {
       directions.add("UP");
     }
-    if (c != (cols - 1)) {
+    if (x != (cols - 1)) {
       directions.add("RIGHT");
     }
-    if (r != (rows - 1)) {
+    if (y != (rows - 1)) {
       directions.add("DOWN");
     }
-    if (c != 0) {
+    if (x != 0) {
       directions.add("LEFT");
     }
     Collections.shuffle(directions); // randomly shuffle directions
