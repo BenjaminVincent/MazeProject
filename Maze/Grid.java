@@ -42,6 +42,8 @@ public class Grid extends JPanel implements ActionListener {
     px = getRandomInt(0, cols);
     py = getRandomInt(0, rows);
 
+    System.out.println(px + " " + py);
+
     Stack<Integer> stack = new Stack<Integer>();
 
     cx = px;

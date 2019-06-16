@@ -3,9 +3,9 @@ import java.util.Collections;
 
 public class Cell {
   private boolean visited = false; // has the cell been visited?
-  private int c;
-  private int r;
-  private ArrayList<Integer> directions = new ArrayList<Integer>();
+  private int x;
+  private int y;
+  private ArrayList<String> directions = new ArrayList<String>();
 
   public Cell(int c, int r, int cols, int rows) {
     this.c = c;
@@ -13,30 +13,29 @@ public class Cell {
 
     // calculate possible directions of travel and add to list of directions
     if (r != 0) {
-      directions.add(0); // 0 is north
-    }
-    if (r != (rows - 1)) {
-      directions.add(1); // 1 is south
-    }
-    if (c != 0) {
-      directions.add(2); // 2 is east
+      directions.add("UP");
     }
     if (c != (cols - 1)) {
-      directions.add(3); // 3 is west
+      directions.add("RIGHT");
     }
-
+    if (r != (rows - 1)) {
+      directions.add("DOWN");
+    }
+    if (c != 0) {
+      directions.add("LEFT");
+    }
     Collections.shuffle(directions); // randomly shuffle directions
   }
 
-  public int c() {
-    return c;
+  public int getX() {
+    return x;
   }
 
-  public int r() {
-    return r;
+  public int getY() {
+    return y;
   }
 
-  public void visited() {
+  public void setVisited() {
     visited = true;
   }
 
@@ -44,7 +43,7 @@ public class Cell {
     return visited;
   }
 
-  public Integer direction() {
+  public Integer getDirection() {
     return directions.get(0);
   }
 
