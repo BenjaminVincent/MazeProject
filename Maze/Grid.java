@@ -18,7 +18,11 @@ public class Grid extends JPanel implements ActionListener {
   int cx; // Current
   int cy; // Current
   int dir;
-  int[][] grid2D;
+  int[][] grid2D; // 2D array for maze display
+  Cell[][] mazeGrid; // 2D array for maze generation
+  Cell current;
+  int SquareSize = 20;
+  int CellSize = 6;
 
   int[] visited;
   int count = 0;
@@ -42,6 +46,12 @@ public class Grid extends JPanel implements ActionListener {
     grid2D = new int[c][r];
     visited = new int[rows * cols];
 
+    mazeGrid = new Cell[rows][cols];
+    for (int i = 0; i < rows; i++) {
+      for (int j = 0; j < cols; j++) {
+        mazeGrid[i][j] = new Cell(j, i, cols, rows);
+      }
+    }
     // Set start position
     px = getRandomInt(0, cols);
     py = getRandomInt(0, rows);
@@ -61,9 +71,6 @@ public class Grid extends JPanel implements ActionListener {
     cx = px;
     cy = py;
   }
-
-
-
 
   public void paintComponent(Graphics g) {
     super.paintComponent(g);
@@ -104,11 +111,12 @@ public class Grid extends JPanel implements ActionListener {
         }
       }
     }
-    greenCell(px, py, CellSize, SquareSize, g);
+    colourSquare(px, py, Color.GREEN, g);
+    removeBorder(px, py, "UP", g);
   }
 
-  public void greenCell(int x, int y, int CellSize, int SquareSize, Graphics g) {
-    g.setColor(Color.GREEN);
+  public void colourSquare(int x, int y, Color color, Graphics g) {
+    g.setColor(color);
     for (int i = x * CellSize + 1; i < x * CellSize + CellSize; i++) {
       for (int j = y * CellSize + 1; j < y * CellSize + CellSize; j++) {
         g.fillRect(i * SquareSize + 1, j * SquareSize + 1, SquareSize - 1, SquareSize - 1);
@@ -121,6 +129,30 @@ public class Grid extends JPanel implements ActionListener {
     for (int i = 0; i < a.length; i++) {
       System.out.print(a[i]);
     }
+  public void removeBorder(int x, int y, String direction, Graphics g) {
+    g.setColor(Color.WHITE);
+    switch (direction) {
+      case "UP":
+        for (int i = x * CellSize + 1; i < x * CellSize + CellSize; i++) {
+          g.fillRect(i * SquareSize + 1, y * CellSize * SquareSize + 1, SquareSize - 1, SquareSize - 1);
+        }
+        break;
+      case "DOWN":
+        for (int i = x * CellSize + 1; i < x * CellSize + CellSize; i++) {
+          g.fillRect(i * SquareSize + 1, (y + 1) * CellSize * SquareSize + 1, SquareSize - 1, SquareSize - 1);
+        }
+        break;
+      case "LEFT":
+        for (int i = y * CellSize + 1; i < y * CellSize + CellSize; i++) {
+          g.fillRect(x * CellSize * SquareSize + 1, i * SquareSize + 1, SquareSize - 1, SquareSize - 1);
+        }
+        break;
+      case "RIGHT":
+        for (int i = y * CellSize + 1; i < y * CellSize + CellSize; i++) {
+          g.fillRect((x + 1) * CellSize * SquareSize + 1, i * SquareSize + 1, SquareSize - 1, SquareSize - 1);
+        }
+        break;
+      }
   }
 
   // Used to find a random (px, py) starting position
@@ -144,45 +176,13 @@ public class Grid extends JPanel implements ActionListener {
     return count;
   }
 
-  // Checks bounds of grid2D for legal movement
-  public static Boolean isInside(int cx, int cy, int[][] grid2D) {
-    if (cx < grid2D.length-1 && cy < grid2D[0].length-1 && cx > 0 && cy > 0) {
-      System.out.println("TRUE");
-      return true;
-    } else {
-      //System.out.println("FALSE");
-      return false;
-    }
-  }
 
   // Update loop
   public void actionPerformed(ActionEvent e) {
 
-    dir = getRandomInt(0, 4);
-
-  //  System.out.println(direction[dir]);
-    switch (direction[dir]) {
-      case "UP":
-        if (isInside(cx, cy, grid2D)) cy--;
-        grid2D[cx][cy] = 2;
-        //greenCell(cx, cy, CellSize, SquareSize, g);
-        break;
-      case "RIGHT":
-        if (isInside(cx, cy, grid2D)) cx++;
-        grid2D[cx][cy] = 2;
-        //greenCell(cx, cy, CellSize, SquareSize, g);
-        break;
-      case "DOWN":
-        if (isInside(cx, cy, grid2D)) py++;
-        grid2D[cx][cy] = 2;
-        //greenCell(cx, cy, CellSize, SquareSize, g);
-        break;
-      case "LEFT":
-        if (isInside(cx, cy, grid2D)) cx--;
-        grid2D[cx][cy] = 2;
-        //greenCell(cx, cy, CellSize, SquareSize, g);
-        break;
-    }
+    /* current = mazeGrid[cx][cy];
+    current.visited();
+    dir = current.direction */
     repaint();
   }
 }
