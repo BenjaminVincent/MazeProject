@@ -22,21 +22,8 @@ public class Grid extends JPanel implements ActionListener {
   Cell[][] mazeGrid; // 2D array for maze generation
   Cell current;
   int SquareSize = 20;
-  int CellSize = 6;
-
-  int[] visited;
-  int count = 0;
-
-  String[] direction = {
-    "UP", // 0
-    "RIGHT", // 1
-    "DOWN", // 2
-    "LEFT" // 3
-  };
-
+  int CellSize = 4;
   Timer t = new Timer(20, this);
-  int SquareSize = 20;
-  int CellSize = 3;
 
 
 
@@ -44,7 +31,6 @@ public class Grid extends JPanel implements ActionListener {
     this.r = rows * CellSize + 1;
     this.c = cols * CellSize + 1;
     grid2D = new int[c][r];
-    visited = new int[rows * cols];
 
     mazeGrid = new Cell[rows][cols];
     for (int i = 0; i < rows; i++) {
@@ -57,17 +43,7 @@ public class Grid extends JPanel implements ActionListener {
     py = getRandomInt(0, rows);
 
     Stack<Integer> stack = new Stack<Integer>();
-    stack.push(px);
-    count = markVisited(px, count, visited);
-    System.out.println("Count: " + count);
-    stack.push(py);    //grid2D[px][py] = 2;
-    count = markVisited(py, count, visited);
-    System.out.println("Count: " + count);
-    //stack.push(new Integer[][] {{px}, {py}});
-    printStack(stack);
 
-    printArray(visited);
-    // Start from initial
     cx = px;
     cy = py;
   }
@@ -129,6 +105,9 @@ public class Grid extends JPanel implements ActionListener {
     for (int i = 0; i < a.length; i++) {
       System.out.print(a[i]);
     }
+  }
+
+  // Removes connecting border between 2 cells
   public void removeBorder(int x, int y, String direction, Graphics g) {
     g.setColor(Color.WHITE);
     switch (direction) {
@@ -168,14 +147,6 @@ public class Grid extends JPanel implements ActionListener {
       System.out.printf("%s", s);
     }
   }
-
-  public static int markVisited(int a, int count, int[] visited) {
-    visited[count] = a;
-    System.out.println("Visited: " + visited[count]);
-    count++;
-    return count;
-  }
-
 
   // Update loop
   public void actionPerformed(ActionEvent e) {
