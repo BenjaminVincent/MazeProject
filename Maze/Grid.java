@@ -17,12 +17,12 @@ public class Grid extends JPanel implements ActionListener {
 
   int cx; // Current
   int cy; // Current
-  int dir;
+  String dir;
   int[][] grid2D; // 2D array for maze display
   Cell[][] mazeGrid; // 2D array for maze generation
   Cell current;
   int SquareSize = 20;
-  int CellSize = 4;
+  int CellSize = 3;
   Timer t = new Timer(20, this);
 
 
@@ -64,7 +64,6 @@ public class Grid extends JPanel implements ActionListener {
       for (int j = 0; j < grid2D[i].length; j++) {
         // Draw rectangle at every grid2D position
         g.drawRect(i * SquareSize, j * SquareSize, SquareSize, SquareSize);
-
         // Draw empty maze
         if (i % CellSize == 0) grid2D[i][j] = 1;
         else if (j % CellSize == 0) grid2D[i][j] = 1;
@@ -90,7 +89,7 @@ public class Grid extends JPanel implements ActionListener {
       }
     }
     colourSquare(px, py, Color.GREEN, g);
-    removeBorder(px, py, "UP", g);
+    removeBorder(px, py, dir, g);
   }
 
   public void colourSquare(int x, int y, Color color, Graphics g) {
@@ -150,12 +149,27 @@ public class Grid extends JPanel implements ActionListener {
     }
   }
 
+  public void moveCell(String dir) {
+    switch (dir) {
+      case "UP":
+        cy--;
+        break;
+      case "RIGHT":
+        cx++;
+        break;
+      case "DOWN":
+        cy++;
+        break;
+      case "LEFT":
+        cx--;
+        break;
+      }
+  }
+
   // Update loop
   public void actionPerformed(ActionEvent e) {
-
-    /* current = mazeGrid[cx][cy];
-    current.visited();
-    dir = current.direction */
+    dir = mazeGrid[cx][cy].getDirection();
+    moveCell(dir);
     repaint();
   }
 }

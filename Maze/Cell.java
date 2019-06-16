@@ -8,34 +8,35 @@ public class Cell {
   private ArrayList<String> directions = new ArrayList<String>();
 
   public Cell(int c, int r, int cols, int rows) {
-    this.c = c;
-    this.r = r;
+    this.x = x;
+    this.y = y;
 
     // calculate possible directions of travel and add to list of directions
-    if (r != 0) {
-      directions.add("UP");
+    if (y != 0) {
+      directions.add("UP"); // 0 is north
     }
-    if (c != (cols - 1)) {
-      directions.add("RIGHT");
+    if (x != (cols - 1)) {
+      directions.add("RIGHT"); // 1 is south
     }
-    if (r != (rows - 1)) {
-      directions.add("DOWN");
+    if (y != (rows - 1)) {
+      directions.add("DOWN"); // 2 is east
     }
-    if (c != 0) {
-      directions.add("LEFT");
+    if (x != 0) {
+      directions.add("LEFT"); // 3 is west
     }
+
     Collections.shuffle(directions); // randomly shuffle directions
   }
 
-  public int getX() {
+  public int c() {
     return x;
   }
 
-  public int getY() {
+  public int r() {
     return y;
   }
 
-  public void setVisited() {
+  public void visited() {
     visited = true;
   }
 
@@ -43,7 +44,7 @@ public class Cell {
     return visited;
   }
 
-  public Integer getDirection() {
+  public String getDirection() {
     return directions.get(0);
   }
 
