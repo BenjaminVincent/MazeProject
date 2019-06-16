@@ -6,7 +6,6 @@ import java.util.Random;
 import java.util.Stack;
 import java.util.Arrays;
 import java.util.Collections;
-import javafx.util.Pair;
 
 public class Grid extends JPanel implements ActionListener {
 
@@ -31,14 +30,18 @@ public class Grid extends JPanel implements ActionListener {
     "LEFT" // 3
   };
 
+  Timer t = new Timer(20, this);
+  int SquareSize = 20;
+  int CellSize = 3;
+
 
 
   public Grid(int cols, int rows){
     this.r = rows * CellSize + 1;
     this.c = cols * CellSize + 1;
     grid2D = new int[c][r];
-
     visited = new int[rows * cols];
+
     // Set start position
     px = getRandomInt(0, cols);
     py = getRandomInt(0, rows);
@@ -60,18 +63,14 @@ public class Grid extends JPanel implements ActionListener {
   }
 
 
-  Timer t = new Timer(20, this);
-  int SquareSize = 20;
-  int CellSize = 3;
+
 
   public void paintComponent(Graphics g) {
     super.paintComponent(g);
     setBackground(Color.WHITE);
     g.setColor(Color.BLACK);
     t.start();
-
-
-    // 0 is WHITE
+    // 0 = WHITE
     // 1 = BLACK
     // 2 = GREEN
 
@@ -105,10 +104,13 @@ public class Grid extends JPanel implements ActionListener {
         }
       }
     }
+    greenCell(px, py, CellSize, SquareSize, g);
+  }
 
-    for (int i = px * CellSize + 1; i < px * CellSize + CellSize; i++) {
-      for (int j = py * CellSize + 1; j < py * CellSize + CellSize; j++) {
-        g.setColor(Color.GREEN);
+  public void greenCell(int x, int y, int CellSize, int SquareSize, Graphics g) {
+    g.setColor(Color.GREEN);
+    for (int i = x * CellSize + 1; i < x * CellSize + CellSize; i++) {
+      for (int j = y * CellSize + 1; j < y * CellSize + CellSize; j++) {
         g.fillRect(i * SquareSize + 1, j * SquareSize + 1, SquareSize - 1, SquareSize - 1);
       }
     }
@@ -138,7 +140,6 @@ public class Grid extends JPanel implements ActionListener {
   public static int markVisited(int a, int count, int[] visited) {
     visited[count] = a;
     System.out.println("Visited: " + visited[count]);
-    //System.out.println("Visited: " + visited[count+1]);
     count++;
     return count;
   }
@@ -162,20 +163,24 @@ public class Grid extends JPanel implements ActionListener {
   //  System.out.println(direction[dir]);
     switch (direction[dir]) {
       case "UP":
-        if (isInside(cx, cy, grid2D)) px++;
+        if (isInside(cx, cy, grid2D)) cy--;
         grid2D[cx][cy] = 2;
+        //greenCell(cx, cy, CellSize, SquareSize, g);
         break;
       case "RIGHT":
-        if (isInside(cx, cy, grid2D)) px++;
+        if (isInside(cx, cy, grid2D)) cx++;
         grid2D[cx][cy] = 2;
+        //greenCell(cx, cy, CellSize, SquareSize, g);
         break;
       case "DOWN":
         if (isInside(cx, cy, grid2D)) py++;
         grid2D[cx][cy] = 2;
+        //greenCell(cx, cy, CellSize, SquareSize, g);
         break;
       case "LEFT":
-        if (isInside(cx, cy, grid2D)) px++;
+        if (isInside(cx, cy, grid2D)) cx--;
         grid2D[cx][cy] = 2;
+        //greenCell(cx, cy, CellSize, SquareSize, g);
         break;
     }
     repaint();
