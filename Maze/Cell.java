@@ -3,26 +3,27 @@ import java.util.Collections;
 
 public class Cell {
   private boolean visited = false; // has the cell been visited?
-  private int x;
-  private int y;
+  private int x; // x position of cell on maze grid
+  private int y; // y position of cell on maze grid
   private ArrayList<String> directions = new ArrayList<String>();
+  private ArrayList<String> usedDirections = new ArrayList<String>();
 
-  public Cell(int c, int r, int cols, int rows) {
+  public Cell(int x, int y, int cols, int rows) {
     this.x = x;
     this.y = y;
 
     // calculate possible directions of travel and add to list of directions
     if (y != 0) {
-      directions.add("UP"); // 0 is north
+      directions.add("UP");
     }
     if (x != (cols - 1)) {
-      directions.add("RIGHT"); // 1 is south
+      directions.add("RIGHT");
     }
     if (y != (rows - 1)) {
-      directions.add("DOWN"); // 2 is east
+      directions.add("DOWN");
     }
     if (x != 0) {
-      directions.add("LEFT"); // 3 is west
+      directions.add("LEFT");
     }
 
     Collections.shuffle(directions); // randomly shuffle directions
@@ -45,10 +46,16 @@ public class Cell {
   }
 
   public String getDirection() {
-    return directions.get(0);
+    String direction = directions.get(0);
+    directions.remove(0);
+    return direction;
   }
 
-  public void removeDirection() {
-    directions.remove(0);
+  public void usedDirection(String dir) {
+    usedDirections.add(dir);
+  }
+
+  public ArrayList<String> getUsedDirections() {
+    return usedDirections;
   }
 }
