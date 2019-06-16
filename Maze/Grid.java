@@ -16,10 +16,13 @@ public class Grid extends JPanel implements ActionListener {
   int cx; // Current
   int cy; // Current
   int dir;
-  int[][] grid2D;
+  int[][] grid2D; // 2D array for maze display
+  Cell[][] mazeGrid; // 2D array for maze generation
+  Cell current;
+  int SquareSize = 20;
+  int CellSize = 6;
 
-  int SquareSize;
-  int CellSize = 4;
+  Timer t = new Timer(20, this);
 
   String[] direction = {
     "UP", // 0
@@ -34,6 +37,12 @@ public class Grid extends JPanel implements ActionListener {
     this.r = rows * CellSize + 1;
     this.c = cols * CellSize + 1;
     grid2D = new int[c][r];
+    mazeGrid = new Cell[rows][cols];
+    for (int i = 0; i < rows; i++) {
+      for (int j = 0; j < cols; j++) {
+        mazeGrid[i][j] = new Cell(j, i, cols, rows);
+      }
+    }
     // Set start position
     px = getRandomInt(0, cols);
     py = getRandomInt(0, rows);
@@ -43,11 +52,6 @@ public class Grid extends JPanel implements ActionListener {
     cx = px;
     cy = py;
   }
-
-
-  Timer t = new Timer(20, this);
-  int SquareSize = 20;
-  int CellSize = 3;
 
   public void paintComponent(Graphics g) {
     super.paintComponent(g);
@@ -85,13 +89,43 @@ public class Grid extends JPanel implements ActionListener {
         }
       }
     }
+    colourSquare(px, py, Color.GREEN, g);
+    removeBorder(px, py, "UP", g);
+  }
 
-    for (int i = px * CellSize + 1; i < px * CellSize + CellSize; i++) {
-      for (int j = py * CellSize + 1; j < py * CellSize + CellSize; j++) {
-        g.setColor(Color.GREEN);
+  public void colourSquare(int x, int y, Color color, Graphics g) {
+    g.setColor(color);
+    for (int i = x * CellSize + 1; i < x * CellSize + CellSize; i++) {
+      for (int j = y * CellSize + 1; j < y * CellSize + CellSize; j++) {
         g.fillRect(i * SquareSize + 1, j * SquareSize + 1, SquareSize - 1, SquareSize - 1);
       }
     }
+  }
+
+  public void removeBorder(int x, int y, String direction, Graphics g) {
+    g.setColor(Color.WHITE);
+    switch (direction) {
+      case "UP":
+        for (int i = x * CellSize + 1; i < x * CellSize + CellSize; i++) {
+          g.fillRect(i * SquareSize + 1, y * CellSize * SquareSize + 1, SquareSize - 1, SquareSize - 1);
+        }
+        break;
+      case "DOWN":
+        for (int i = x * CellSize + 1; i < x * CellSize + CellSize; i++) {
+          g.fillRect(i * SquareSize + 1, (y + 1) * CellSize * SquareSize + 1, SquareSize - 1, SquareSize - 1);
+        }
+        break;
+      case "LEFT":
+        for (int i = y * CellSize + 1; i < y * CellSize + CellSize; i++) {
+          g.fillRect(x * CellSize * SquareSize + 1, i * SquareSize + 1, SquareSize - 1, SquareSize - 1);
+        }
+        break;
+      case "RIGHT":
+        for (int i = y * CellSize + 1; i < y * CellSize + CellSize; i++) {
+          g.fillRect((x + 1) * CellSize * SquareSize + 1, i * SquareSize + 1, SquareSize - 1, SquareSize - 1);
+        }
+        break;
+      }
   }
 
   // Used to find a random (px, py) starting position
@@ -112,33 +146,14 @@ public class Grid extends JPanel implements ActionListener {
     }
   }
 
+  
+
   // Update loop
   public void actionPerformed(ActionEvent e) {
 
-    dir = getRandomInt(0, 4);
-
-  //  System.out.println(direction[dir]);
-/*
-    switch (direction[dir]) {
-      case "UP":
-        if (isInside(cx, cy, grid2D)) cy--;
-        grid2D[cx][cy] = 0;
-        break;
-      case "RIGHT":
-        if (isInside(cx, cy, grid2D)) cx++;
-        grid2D[cx][cy] = 0;
-        break;
-      case "DOWN":
-        if (isInside(cx, cy, grid2D)) cy++;
-        grid2D[cx][cy] = 0;
-        break;
-      case "LEFT":
-        if (isInside(cx, cy, grid2D)) cx--;
-        grid2D[cx][cy] = 0;
-        break;
-    }
-    */
-
+    /* current = mazeGrid[cx][cy];
+    current.visited();
+    dir = current.direction */
     repaint();
   }
 }
