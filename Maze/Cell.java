@@ -3,13 +3,13 @@ import java.util.Collections;
 
 public class Cell {
   private boolean visited = false; // has the cell been visited?
-  private int x;
-  private int y;
+  private int x; // x position of cell on maze grid
+  private int y; // y position of cell on maze grid
   private ArrayList<String> directions = new ArrayList<String>();
 
   public Cell(int c, int r, int cols, int rows) {
-    this.c = c;
-    this.r = r;
+    this.x = c;
+    this.y = r;
 
     // calculate possible directions of travel and add to list of directions
     if (r != 0) {
@@ -43,7 +43,7 @@ public class Cell {
     return visited;
   }
 
-  public Integer getDirection() {
+  public String getDirection() {
     return directions.get(0);
   }
 
