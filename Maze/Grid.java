@@ -4,6 +4,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.Random;
 import java.util.Stack;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class Grid extends JPanel implements ActionListener {
 
@@ -20,16 +22,8 @@ public class Grid extends JPanel implements ActionListener {
   Cell[][] mazeGrid; // 2D array for maze generation
   Cell current;
   int SquareSize = 20;
-  int CellSize = 6;
-
+  int CellSize = 4;
   Timer t = new Timer(20, this);
-
-  String[] direction = {
-    "UP", // 0
-    "RIGHT", // 1
-    "DOWN", // 2
-    "LEFT" // 3
-  };
 
 
 
@@ -37,6 +31,7 @@ public class Grid extends JPanel implements ActionListener {
     this.r = rows * CellSize + 1;
     this.c = cols * CellSize + 1;
     grid2D = new int[c][r];
+
     mazeGrid = new Cell[rows][cols];
     for (int i = 0; i < rows; i++) {
       for (int j = 0; j < cols; j++) {
@@ -46,9 +41,9 @@ public class Grid extends JPanel implements ActionListener {
     // Set start position
     px = getRandomInt(0, cols);
     py = getRandomInt(0, rows);
-    //grid2D[px][py] = 2;
 
-    // Start from initial
+    Stack<Integer> stack = new Stack<Integer>();
+
     cx = px;
     cy = py;
   }
@@ -58,8 +53,7 @@ public class Grid extends JPanel implements ActionListener {
     setBackground(Color.WHITE);
     g.setColor(Color.BLACK);
     t.start();
-
-    // 0 is WHITE
+    // 0 = WHITE
     // 1 = BLACK
     // 2 = GREEN
 
@@ -86,6 +80,10 @@ public class Grid extends JPanel implements ActionListener {
           g.setColor(Color.GREEN);
           g.fillRect(i * SquareSize + 1, j * SquareSize + 1, SquareSize - 1, SquareSize - 1);
           g.setColor(Color.BLACK);
+        } else if (grid2D[i][j] == 3) {
+          g.setColor(Color.BLUE);
+          g.fillRect(i * SquareSize + 1, j * SquareSize + 1, SquareSize - 1, SquareSize - 1);
+          g.setColor(Color.BLACK);
         }
       }
     }
@@ -102,6 +100,14 @@ public class Grid extends JPanel implements ActionListener {
     }
   }
 
+  public static void printArray(int[] a) {
+    System.out.println();
+    for (int i = 0; i < a.length; i++) {
+      System.out.print(a[i]);
+    }
+  }
+
+  // Removes connecting border between 2 cells
   public void removeBorder(int x, int y, String direction, Graphics g) {
     g.setColor(Color.WHITE);
     switch (direction) {
@@ -134,19 +140,13 @@ public class Grid extends JPanel implements ActionListener {
     return r.nextInt(((max - 1) - min) + 1) + min;
   }
 
-
-  // Checks bounds of grid2D for legal movement
-  public static Boolean isInside(int cx, int cy, int[][] grid2D) {
-    if (cx < grid2D.length-1 && cy < grid2D[0].length-1 && cx > 0 && cy > 0) {
-      System.out.println("TRUE");
-      return true;
+  public static void printStack(Stack<Integer> s) {
+    if (s.isEmpty()) {
+      System.out.println("Empty");
     } else {
-      System.out.println("FALSE");
-      return false;
+      System.out.printf("%s", s);
     }
   }
-
-  
 
   // Update loop
   public void actionPerformed(ActionEvent e) {
