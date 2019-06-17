@@ -23,14 +23,16 @@ public class Grid extends JPanel implements ActionListener {
   Cell current;
   int SquareSize = 20;
   int CellSize = 3;
-  Timer t = new Timer(20, this);
-
+  Timer t = new Timer(100, this);
+  Stack<Cell> stack;
+  boolean first;
+  Color mazeColor;
 
 
   public Grid(int cols, int rows){
     this.r = rows * CellSize + 1;
     this.c = cols * CellSize + 1;
-    grid2D = new int[c][r];
+    grid2D = new int[r][c];
 
     mazeGrid = new Cell[rows][cols];
     for (int i = 0; i < rows; i++) {
@@ -42,12 +44,12 @@ public class Grid extends JPanel implements ActionListener {
     px = getRandomInt(0, cols);
     py = getRandomInt(0, rows);
 
-    System.out.println(px + " " + py);
-
-    Stack<Integer> stack = new Stack<Integer>();
-
+    stack = new Stack<Cell>();
+    current = mazeGrid[py][px];
+    first = true;
     cx = px;
     cy = py;
+    mazeColor = Color.BLUE;
   }
 
   public void paintComponent(Graphics g) {
@@ -63,18 +65,18 @@ public class Grid extends JPanel implements ActionListener {
     for (int i = 0; i < grid2D.length; i++) {
       for (int j = 0; j < grid2D[i].length; j++) {
         // Draw rectangle at every grid2D position
-        g.drawRect(i * SquareSize, j * SquareSize, SquareSize, SquareSize);
+        g.drawRect(j * SquareSize, i * SquareSize, SquareSize, SquareSize);
         // Draw empty maze
         if (i % CellSize == 0) grid2D[i][j] = 1;
         else if (j % CellSize == 0) grid2D[i][j] = 1;
 
         if (grid2D[i][j] == 0) {
           g.setColor(Color.WHITE);
-          g.fillRect(i * SquareSize + 1, j * SquareSize + 1, SquareSize-1, SquareSize-1);
+          g.fillRect(j * SquareSize + 1, i * SquareSize + 1, SquareSize-1, SquareSize-1);
           g.setColor(Color.BLACK);
         } else if (grid2D[i][j] == 1) {
           g.setColor(Color.BLACK);
-          g.fillRect(i * SquareSize + 1, j * SquareSize + 1, SquareSize - 1, SquareSize - 1);
+          g.fillRect(j * SquareSize + 1, i * SquareSize + 1, SquareSize - 1, SquareSize - 1);
           g.setColor(Color.BLACK);
         }
       }
@@ -83,7 +85,7 @@ public class Grid extends JPanel implements ActionListener {
     for (int i = 0; i < mazeGrid.length; i++) {
       for (int j = 0; j < mazeGrid[i].length; j++) {
         if (mazeGrid[i][j].isVisited()) {
-          colourSquare(px, py, Color.BLUE, g);
+          colourSquare(j, i, mazeColor, g);
         }
         for (String d : mazeGrid[i][j].getUsedDirections()) {
           removeBorder(j, i, d, g);
@@ -113,7 +115,7 @@ public class Grid extends JPanel implements ActionListener {
 
   // Removes connecting border between 2 cells
   public void removeBorder(int x, int y, String direction, Graphics g) {
-    g.setColor(Color.WHITE);
+    g.setColor(mazeColor);
     switch (direction) {
       case "UP":
         for (int i = x * CellSize + 1; i < x * CellSize + CellSize; i++) {
@@ -135,7 +137,7 @@ public class Grid extends JPanel implements ActionListener {
           g.fillRect((x + 1) * CellSize * SquareSize + 1, i * SquareSize + 1, SquareSize - 1, SquareSize - 1);
         }
         break;
-      }
+    }
   }
 
   // Used to find a random (px, py) starting position
@@ -166,13 +168,53 @@ public class Grid extends JPanel implements ActionListener {
       case "LEFT":
         cx--;
         break;
-      }
+    }
+  }
+
+  public boolean cellVisited(String dir, int x, int y) {
+    switch (dir) {
+      case "UP":
+        return mazeGrid[y - 1][x].isVisited();
+      case "RIGHT":
+        return mazeGrid[y][x + 1].isVisited();
+      case "DOWN":
+        return mazeGrid[y + 1][x].isVisited();
+      case "LEFT":
+        return mazeGrid[y][x - 1].isVisited();
+    }
+    return false;
   }
 
   // Update loop
   public void actionPerformed(ActionEvent e) {
-    dir = mazeGrid[cx][cy].getDirection();
-    moveCell(dir);
+    if (!stack.empty() || first) {
+      first = false;
+      dir = current.getDirection();
+      cx = current.getX();
+      cy = current.getY();
+      if (!dir.equals("EMPTY")) {
+        while (cellVisited(dir, cx, cy)) {
+          if (!dir.equals("EMPTY")) {
+            dir = current.getDirection();
+          } else {
+            dir = "EMPTY";
+          }
+        }
+      }
+      if (!dir.equals("EMPTY")) {
+        current.usedDirection(dir);
+        current.visited();
+        stack.push(current);
+        moveCell(dir);
+        current = mazeGrid[cy][cx];
+      } else {
+        current.usedDirection(dir);
+        current.visited();
+        current = stack.pop();
+      }
+    } else {
+      mazeColor = Color.WHITE;
+    }
     repaint();
   }
 }

@@ -29,11 +29,11 @@ public class Cell {
     Collections.shuffle(directions); // randomly shuffle directions
   }
 
-  public int c() {
+  public int getX() {
     return x;
   }
 
-  public int r() {
+  public int getY() {
     return y;
   }
 
@@ -46,9 +46,13 @@ public class Cell {
   }
 
   public String getDirection() {
-    String direction = directions.get(0);
-    directions.remove(0);
-    return direction;
+    if (!directions.isEmpty()) {
+      String direction = directions.get(0);
+      directions.remove(0);
+      return direction;
+    } else {
+      return "EMPTY";
+    }
   }
 
   public void usedDirection(String dir) {
