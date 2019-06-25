@@ -49,8 +49,6 @@ public class Grid extends JPanel implements ActionListener {
     stack = new Stack<Cell>();
     current = mazeGrid[py][px];
     first = true;
-    System.out.println(px);
-    System.out.println(py);
     cx = px;
     cy = py;
     mazeColor = Color.BLUE;
@@ -101,7 +99,7 @@ public class Grid extends JPanel implements ActionListener {
         if (i == cy && j == cx) {
           colourSquare(cx, cy, Color.GREEN, g);
         } else {
-          if (stack.isEmpty()) {
+          if (stack.isEmpty() && !first) {
           findFinish(px, py, mazeGrid.length, mazeGrid[0].length, g);
           }
         }
