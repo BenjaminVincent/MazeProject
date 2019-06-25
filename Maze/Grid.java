@@ -6,6 +6,7 @@ import java.util.Random;
 import java.util.Stack;
 import java.util.Arrays;
 import java.util.Collections;
+import java.lang.*;
 
 public class Grid extends JPanel implements ActionListener {
 
@@ -23,7 +24,7 @@ public class Grid extends JPanel implements ActionListener {
   Cell current;
   int SquareSize = 20;
   int CellSize = 3;
-  Timer t = new Timer(100, this);
+  Timer t = new Timer(20, this);
   Stack<Cell> stack;
   boolean first;
   Color mazeColor;
@@ -34,6 +35,7 @@ public class Grid extends JPanel implements ActionListener {
     this.c = cols * CellSize + 1;
     grid2D = new int[r][c];
 
+    // Create 2D Cell Array and fill each position with a Cell Object
     mazeGrid = new Cell[rows][cols];
     for (int i = 0; i < rows; i++) {
       for (int j = 0; j < cols; j++) {
@@ -47,6 +49,8 @@ public class Grid extends JPanel implements ActionListener {
     stack = new Stack<Cell>();
     current = mazeGrid[py][px];
     first = true;
+    System.out.println(px);
+    System.out.println(py);
     cx = px;
     cy = py;
     mazeColor = Color.BLUE;
@@ -61,7 +65,7 @@ public class Grid extends JPanel implements ActionListener {
     // 1 = BLACK
     // 2 = GREEN
 
-    // Loop through the grid
+    // ***** Paint initial grid ******
     for (int i = 0; i < grid2D.length; i++) {
       for (int j = 0; j < grid2D[i].length; j++) {
         // Draw rectangle at every grid2D position
@@ -82,21 +86,30 @@ public class Grid extends JPanel implements ActionListener {
       }
     }
 
+
+
     for (int i = 0; i < mazeGrid.length; i++) {
       for (int j = 0; j < mazeGrid[i].length; j++) {
         if (mazeGrid[i][j].isVisited()) {
           colourSquare(j, i, mazeColor, g);
         }
+        // for each direction d that has been traveled to
+        // remove the wall connecting the cells
         for (String d : mazeGrid[i][j].getUsedDirections()) {
           removeBorder(j, i, d, g);
         }
         if (i == cy && j == cx) {
           colourSquare(cx, cy, Color.GREEN, g);
+        } else {
+          if (stack.isEmpty()) {
+          findFinish(px, py, mazeGrid.length, mazeGrid[0].length, g);
+          }
         }
       }
     }
   }
 
+  // Set a particular square to the given color
   public void colourSquare(int x, int y, Color color, Graphics g) {
     g.setColor(color);
     for (int i = x * CellSize + 1; i < x * CellSize + CellSize; i++) {
@@ -146,14 +159,6 @@ public class Grid extends JPanel implements ActionListener {
     return r.nextInt(((max - 1) - min) + 1) + min;
   }
 
-  public static void printStack(Stack<Integer> s) {
-    if (s.isEmpty()) {
-      System.out.println("Empty");
-    } else {
-      System.out.printf("%s", s);
-    }
-  }
-
   public void moveCell(String dir) {
     switch (dir) {
       case "UP":
@@ -185,6 +190,68 @@ public class Grid extends JPanel implements ActionListener {
     return false;
   }
 
+  public void findFinish(int px, int py, int rows, int cols, Graphics g) {
+    // Idea: place in corner furthest from the start (GREEN cell)
+
+    int fX = 0;
+    int fY = 0;
+    // Top Left
+    int x1 = Math.abs(px - 0);
+    int y1 = Math.abs(py - 0);
+
+    int tL = x1 + y1;
+
+    // Top Right
+    int x2 = Math.abs(px - (cols - 1));
+    int y2 = Math.abs(py - 0);
+
+    int tR = x2 + y2;
+
+    // Bottom Left
+    int x3 = Math.abs(px - (rows - 1));
+    int y3 = Math.abs(py - 0);
+
+    int bL = x3 + y3;
+
+    // Bottom Right
+    int x4 = Math.abs(px - (cols - 1));
+    int y4 = Math.abs(py - (rows - 1));
+
+    int bR = x4 + y4;
+
+    //System.out.println(tL);
+    //System.out.println(tR);
+    //System.out.println(bL);
+    //System.out.println(bR);
+
+    // Calculate max
+    int max = tL;
+
+    if (tR > max) max = tR;
+    if (bL > max) max = bL;
+    if (bR > max) max = bR;
+
+    if (max == tL) {
+      fX = 0;
+      fY = 0;
+    } else if (max == tR) {
+      fX = cols - 1;
+      fY = 0;
+    } else if (max == bL) {
+      fX = 0;
+      fY = rows - 1;
+    } else if (max == bR) {
+      fX = cols - 1;
+      fY = rows - 1;
+    }
+
+    //System.out.println(max);
+
+    colourSquare(fX, fY, Color.RED, g);
+
+  }
+
+
   // Update loop
   public void actionPerformed(ActionEvent e) {
     if (!stack.empty() || first) {
@@ -192,6 +259,7 @@ public class Grid extends JPanel implements ActionListener {
       dir = current.getDirection();
       cx = current.getX();
       cy = current.getY();
+
       if (!dir.equals("EMPTY")) {
         while (cellVisited(dir, cx, cy)) {
           if (!dir.equals("EMPTY")) {
