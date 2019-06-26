@@ -191,36 +191,21 @@ public class Grid extends JPanel implements ActionListener {
   public void findFinish(int px, int py, int rows, int cols, Graphics g) {
     // Idea: place in corner furthest from the start (GREEN cell)
 
+    // initial final X,Y
     int fX = 0;
     int fY = 0;
-    // Top Left
-    int x1 = Math.abs(px - 0);
-    int y1 = Math.abs(py - 0);
 
-    int tL = x1 + y1;
+    // Top Left
+    int tL = px + py;
 
     // Top Right
-    int x2 = Math.abs(px - (cols - 1));
-    int y2 = Math.abs(py - 0);
-
-    int tR = x2 + y2;
+    int tR = Math.abs(px - (cols - 1)) + py;
 
     // Bottom Left
-    int x3 = Math.abs(px - (rows - 1));
-    int y3 = Math.abs(py - 0);
-
-    int bL = x3 + y3;
+    int bL = Math.abs(px - (rows - 1)) + py;
 
     // Bottom Right
-    int x4 = Math.abs(px - (cols - 1));
-    int y4 = Math.abs(py - (rows - 1));
-
-    int bR = x4 + y4;
-
-    //System.out.println(tL);
-    //System.out.println(tR);
-    //System.out.println(bL);
-    //System.out.println(bR);
+    int bR = Math.abs(px - (cols - 1)) + Math.abs(py - (rows - 1));
 
     // Calculate max
     int max = tL;
@@ -243,8 +228,7 @@ public class Grid extends JPanel implements ActionListener {
       fY = rows - 1;
     }
 
-    //System.out.println(max);
-
+    // Set corner
     colourSquare(fX, fY, Color.RED, g);
 
   }
