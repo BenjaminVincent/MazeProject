@@ -20,13 +20,14 @@ public class Grid extends JPanel implements ActionListener {
 
   int SquareSize = 20;
   int CellSize = 3;
-  Timer t = new Timer(20, this);
+  Timer t = new Timer(200, this);
 
   Color mazeColor;
   MazeGenerator generator;
 
+  Solver solve;
 
-  public Grid(int cols, int rows){
+  public Grid(int cols, int rows) {
     this.r = rows * CellSize + 1;
     this.c = cols * CellSize + 1;
     grid2D = new int[r][c];
@@ -34,6 +35,7 @@ public class Grid extends JPanel implements ActionListener {
     fx = generator.getFinalX();
     fy = generator.getFinalY();
     mazeGrid = generator.getMazeGrid();
+    solve = new Solver(mazeGrid, generator.getCurrentX(), generator.getCurrentY());
   }
 
   public void paintComponent(Graphics g) {
@@ -131,10 +133,20 @@ public class Grid extends JPanel implements ActionListener {
 
   // Update loop
   public void actionPerformed(ActionEvent e) {
+    if (!generator.isFinished()) {
     generator.moveCell();
     cx = generator.getCurrentX();
     cy = generator.getCurrentY();
     mazeColor = generator.getMazeColor();
+  } else { // Maze has finished generating (start solving)
+    // call solving algorithm
+    //System.out.println(cy);
+    solve.move(solve.DFS());
+    cx = solve.getCurrentX();
+    cy = solve.getCurrentY();
+    //System.out.println(cy);
+    System.out.println(solve.DFS());
+  }
     repaint();
   }
 }
