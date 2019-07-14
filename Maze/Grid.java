@@ -66,8 +66,6 @@ public class Grid extends JPanel implements ActionListener {
       }
     }
 
-
-
     for (int i = 0; i < mazeGrid.length; i++) {
       for (int j = 0; j < mazeGrid[i].length; j++) {
         if (mazeGrid[i][j].isVisited()) {
@@ -80,14 +78,12 @@ public class Grid extends JPanel implements ActionListener {
         }
         if (i == cy && j == cx) {
           colourSquare(cx, cy, Color.GREEN, g);
-        } else {
-          if (generator.finished && !generator.first) {
-          colourSquare(fx, fy, Color.RED, g);
+        } if (generator.isFinished() && !generator.isFirst()) {
+            colourSquare(fx, fy, Color.RED, g);
           }
         }
       }
     }
-  }
 
   // Set a particular square to the given color
   public void colourSquare(int x, int y, Color color, Graphics g) {
@@ -133,17 +129,12 @@ public class Grid extends JPanel implements ActionListener {
     }
   }
 
-
-
-
-
-
   // Update loop
   public void actionPerformed(ActionEvent e) {
     generator.moveCell();
-    cx = generator.cx;
-    cy = generator.cy;
-    mazeColor = generator.mazeColor;
+    cx = generator.getCurrentX();
+    cy = generator.getCurrentY();
+    mazeColor = generator.getMazeColor();
     repaint();
   }
 }

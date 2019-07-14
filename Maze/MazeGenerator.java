@@ -3,19 +3,19 @@ import java.util.Random;
 import java.util.Stack;
 public class MazeGenerator {
 
-  int px; // Starting
-  int py; // Starting
-  int cx; // Current
-  int cy; // Current
-  int fx; // Final
-  int fy; // Final
+  private int px; // Starting
+  private int py; // Starting
+  private int cx; // Current
+  private int cy; // Current
+  private int fx; // Final
+  private int fy; // Final
   String dir;
-  Cell[][] mazeGrid; // 2D array for maze generation
+  private Cell[][] mazeGrid; // 2D array for maze generation
   Cell current; // Current cell
   Stack<Cell> stack;
-  boolean first; // Is it on the first cell in the generation process?
-  boolean finished; // Is generation finished?
-  Color mazeColor; // The colour of visited cells
+  private boolean first; // Is it on the first cell in the generation process?
+  private boolean finished; // Is generation finished?
+  private Color mazeColor; // The colour of visited cells
 
   public MazeGenerator(int cols, int rows) {
     // Create 2D Cell Array and fill each position with a Cell Object
@@ -151,7 +151,7 @@ public class MazeGenerator {
       mazeColor = Color.WHITE;
       cx = px;
       cy = py;
-      finished = false;
+      finished = true;
     }
   }
 
@@ -163,8 +163,28 @@ public class MazeGenerator {
     return fy;
   }
 
+  public int getCurrentX() {
+    return cx;
+  }
+
+  public int getCurrentY() {
+    return cy;
+  }
+
   public Cell[][] getMazeGrid() {
     return mazeGrid;
+  }
+
+  public boolean isFinished() {
+    return finished;
+  }
+
+  public boolean isFirst() {
+    return first;
+  }
+
+  public Color getMazeColor() {
+    return mazeColor;
   }
 
 }
