@@ -2,8 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.util.Random;
-import java.util.Stack;
 import java.util.Arrays;
 import java.util.Collections;
 import java.lang.*;
@@ -12,46 +10,30 @@ public class Grid extends JPanel implements ActionListener {
 
   int c; // Columns
   int r; // Rows
+  int cx; // Current x
+  int cy; // Current y
+  int fx; // Finish x
+  int fy; // Finish y
 
-  int px; // Starting
-  int py; // Starting
-
-  int cx; // Current
-  int cy; // Current
-  String dir;
   int[][] grid2D; // 2D array for maze display
   Cell[][] mazeGrid; // 2D array for maze generation
-  Cell current;
+
   int SquareSize = 20;
   int CellSize = 3;
   Timer t = new Timer(20, this);
-  Stack<Cell> stack;
-  boolean first;
+
   Color mazeColor;
+  MazeGenerator generator;
 
 
   public Grid(int cols, int rows){
     this.r = rows * CellSize + 1;
     this.c = cols * CellSize + 1;
     grid2D = new int[r][c];
-
-    // Create 2D Cell Array and fill each position with a Cell Object
-    mazeGrid = new Cell[rows][cols];
-    for (int i = 0; i < rows; i++) {
-      for (int j = 0; j < cols; j++) {
-        mazeGrid[i][j] = new Cell(j, i, cols, rows);
-      }
-    }
-    // Set start position
-    px = getRandomInt(0, cols);
-    py = getRandomInt(0, rows);
-
-    stack = new Stack<Cell>();
-    current = mazeGrid[py][px];
-    first = true;
-    cx = px;
-    cy = py;
-    mazeColor = Color.BLUE;
+    generator = new MazeGenerator(cols, rows);
+    fx = generator.getFinalX();
+    fy = generator.getFinalY();
+    mazeGrid = generator.getMazeGrid();
   }
 
   public void paintComponent(Graphics g) {
@@ -99,8 +81,8 @@ public class Grid extends JPanel implements ActionListener {
         if (i == cy && j == cx) {
           colourSquare(cx, cy, Color.GREEN, g);
         } else {
-          if (stack.isEmpty() && !first) {
-          findFinish(px, py, mazeGrid.length, mazeGrid[0].length, g);
+          if (generator.finished && !generator.first) {
+          colourSquare(fx, fy, Color.RED, g);
           }
         }
       }
@@ -151,120 +133,17 @@ public class Grid extends JPanel implements ActionListener {
     }
   }
 
-  // Used to find a random (px, py) starting position
-  public static int getRandomInt(int min, int max) {
-    Random r = new Random();
-    return r.nextInt(((max - 1) - min) + 1) + min;
-  }
 
-  public void moveCell(String dir) {
-    switch (dir) {
-      case "UP":
-        cy--;
-        break;
-      case "RIGHT":
-        cx++;
-        break;
-      case "DOWN":
-        cy++;
-        break;
-      case "LEFT":
-        cx--;
-        break;
-    }
-  }
 
-  public boolean cellVisited(String dir, int x, int y) {
-    switch (dir) {
-      case "UP":
-        return mazeGrid[y - 1][x].isVisited();
-      case "RIGHT":
-        return mazeGrid[y][x + 1].isVisited();
-      case "DOWN":
-        return mazeGrid[y + 1][x].isVisited();
-      case "LEFT":
-        return mazeGrid[y][x - 1].isVisited();
-    }
-    return false;
-  }
 
-  public void findFinish(int px, int py, int rows, int cols, Graphics g) {
-    // Idea: place in corner furthest from the start (GREEN cell)
-
-    // initial final X,Y
-    int fX = 0;
-    int fY = 0;
-
-    // Top Left
-    int tL = px + py;
-
-    // Top Right
-    int tR = Math.abs(px - (cols - 1)) + py;
-
-    // Bottom Left
-    int bL = Math.abs(px - (rows - 1)) + py;
-
-    // Bottom Right
-    int bR = Math.abs(px - (cols - 1)) + Math.abs(py - (rows - 1));
-
-    // Calculate max
-    int max = tL;
-
-    if (tR > max) max = tR;
-    if (bL > max) max = bL;
-    if (bR > max) max = bR;
-
-    if (max == tL) {
-      fX = 0;
-      fY = 0;
-    } else if (max == tR) {
-      fX = cols - 1;
-      fY = 0;
-    } else if (max == bL) {
-      fX = 0;
-      fY = rows - 1;
-    } else if (max == bR) {
-      fX = cols - 1;
-      fY = rows - 1;
-    }
-
-    // Set corner
-    colourSquare(fX, fY, Color.RED, g);
-
-  }
 
 
   // Update loop
   public void actionPerformed(ActionEvent e) {
-    if (!stack.empty() || first) {
-      first = false;
-      dir = current.getDirection();
-      cx = current.getX();
-      cy = current.getY();
-
-      if (!dir.equals("EMPTY")) {
-        while (cellVisited(dir, cx, cy)) {
-          if (!dir.equals("EMPTY")) {
-            dir = current.getDirection();
-          } else {
-            dir = "EMPTY";
-          }
-        }
-      }
-      if (!dir.equals("EMPTY")) {
-        current.usedDirection(dir);
-        current.visited();
-        stack.push(current);
-        moveCell(dir);
-        current = mazeGrid[cy][cx];
-      } else {
-        current.usedDirection(dir);
-        current.visited();
-        current = stack.pop();
-      }
-    } else {
-      mazeColor = Color.WHITE;
-    }
+    generator.moveCell();
+    cx = generator.cx;
+    cy = generator.cy;
+    mazeColor = generator.mazeColor;
     repaint();
   }
 }
