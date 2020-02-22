@@ -1,2 +1,20 @@
-# MazeProject
-This repository is for a maze generation project <br />
+# Maze Generator
+This is a project designed to practice: algorithm implementation, programming in Java, and producing standalone applications <br />
+
+# Contributers
+- Benjamin Vincent (BenjaminVincent)
+- Nick Mateyko (nmateyko)
+
+## Run
+
+Run the program with `java Maze.java`.
+
+## stack:
+Java
+Swing
+
+## Screenshots
+
+```sh
+soon...
+```
