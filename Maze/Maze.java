@@ -15,7 +15,6 @@ public class Maze {
   public static void drawWindow(int w, int h) {
     SwingUtilities.invokeLater(new Runnable() {
       public void run() {
-
         //initialize JFrame
         JFrame frame = new JFrame("Maze Generator");
         frame.setSize(w, h);
@@ -23,9 +22,9 @@ public class Maze {
         frame.add(input);
 
         input.b.addActionListener(new ActionListener() {
-
         //runs when the button is pressed
         public void actionPerformed(ActionEvent arg0) {
+
             Grid grid = new Grid(input.c, input.r);
             frame.remove(input);
             frame.add(grid);

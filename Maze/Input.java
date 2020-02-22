@@ -6,8 +6,12 @@ import java.text.*;
 
 public class Input extends JPanel implements PropertyChangeListener{
 
-  private JLabel colLabel;
-  private JLabel rowLabel;
+  /**
+   *
+   */
+  // private static final long serialVersionUID = 1L;
+  private JLabel colLabel = new JLabel(colString);
+  private JLabel rowLabel  = new JLabel(rowString);
 
   private static String colString = "Number of Columns: ";
   private static String rowString = "Number of Rows: ";
@@ -32,8 +36,8 @@ public class Input extends JPanel implements PropertyChangeListener{
     this.winWidth = WIDTH;
     this.winHeight = HEIGHT;
 
-    colLabel = new JLabel(colString);
-    rowLabel = new JLabel(rowString);
+    // colLabel = new JLabel(colString);
+    // rowLabel = new JLabel(rowString);
 
     colField = new JFormattedTextField();
     colField.setValue(c);
