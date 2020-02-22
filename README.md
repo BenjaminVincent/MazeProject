@@ -10,7 +10,7 @@ This is a project designed to practice: algorithm implementation, programming in
 Run the program with `java Maze.java`.
 
 ## stack:
-Java
+Java,
 Swing
 
 ## Screenshots
