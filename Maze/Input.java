@@ -2,14 +2,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
-import java.text.*;
 
 public class Input extends JPanel implements PropertyChangeListener{
 
-  /**
-   *
-   */
-  // private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
+
   private JLabel colLabel = new JLabel(colString);
   private JLabel rowLabel  = new JLabel(rowString);
 
@@ -21,8 +18,8 @@ public class Input extends JPanel implements PropertyChangeListener{
 
 
   // set defaults
-  int c = 8;
-  int r = 10;
+  int c = 6;
+  int r = 8;
 
   int winWidth;
   int winHeight;
@@ -35,9 +32,6 @@ public class Input extends JPanel implements PropertyChangeListener{
 
     this.winWidth = WIDTH;
     this.winHeight = HEIGHT;
-
-    // colLabel = new JLabel(colString);
-    // rowLabel = new JLabel(rowString);
 
     colField = new JFormattedTextField();
     colField.setValue(c);

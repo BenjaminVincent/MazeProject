@@ -2,12 +2,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.util.Arrays;
-import java.util.Collections;
-import java.lang.*;
 
 public class Grid extends JPanel implements ActionListener {
 
+  /**
+   *
+   */
+  private static final long serialVersionUID = 1L;
   int c; // Columns
   int r; // Rows
   int cx; // Current x

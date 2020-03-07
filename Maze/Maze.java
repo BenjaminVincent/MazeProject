@@ -36,7 +36,6 @@ public class Maze {
         ImageIcon icon = new ImageIcon("mazeicon.png");
         frame.setIconImage(icon.getImage());
 
-        //frame.setLayout(null); // prevents auto sizing
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       }
