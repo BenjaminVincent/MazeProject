@@ -2,9 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.util.Arrays;
-import java.util.Collections;
-import java.lang.*;
 
 public class Grid extends JPanel implements ActionListener {
 
@@ -57,7 +54,7 @@ public class Grid extends JPanel implements ActionListener {
         else if (j % CellSize == 0) grid2D[i][j] = 1;
 
         if (grid2D[i][j] == 0) {
-          g.setColor(Color.WHITE);
+          g.setColor(Color.BLACK);
           g.fillRect(j * SquareSize + 1, i * SquareSize + 1, SquareSize-1, SquareSize-1);
           g.setColor(Color.BLACK);
         } else if (grid2D[i][j] == 1) {
