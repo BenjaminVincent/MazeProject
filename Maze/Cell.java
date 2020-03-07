@@ -3,37 +3,38 @@ import java.util.Collections;
 
 public class Cell {
   private boolean visited = false; // has the cell been visited?
-  private int c;
-  private int r;
-  private ArrayList<Integer> directions = new ArrayList<Integer>();
+  private int x; // x position of cell on maze grid
+  private int y; // y position of cell on maze grid
+  private ArrayList<String> directions = new ArrayList<String>();
+  private ArrayList<String> usedDirections = new ArrayList<String>();
 
-  public Cell(int c, int r, int cols, int rows) {
-    this.c = c;
-    this.r = r;
+  public Cell(int x, int y, int cols, int rows) {
+    this.x = x;
+    this.y = y;
 
     // calculate possible directions of travel and add to list of directions
-    if (r != 0) {
-      directions.add(0); // 0 is north
+    if (y != 0) {
+      directions.add("UP");
     }
-    if (r != (rows - 1)) {
-      directions.add(1); // 1 is south
+    if (x != (cols - 1)) {
+      directions.add("RIGHT");
     }
-    if (c != 0) {
-      directions.add(2); // 2 is east
+    if (y != (rows - 1)) {
+      directions.add("DOWN");
     }
-    if (c != (cols - 1)) {
-      directions.add(3); // 3 is west
+    if (x != 0) {
+      directions.add("LEFT");
     }
 
     Collections.shuffle(directions); // randomly shuffle directions
   }
 
-  public int c() {
-    return c;
+  public int getX() {
+    return x;
   }
 
-  public int r() {
-    return r;
+  public int getY() {
+    return y;
   }
 
   public void visited() {
@@ -44,11 +45,21 @@ public class Cell {
     return visited;
   }
 
-  public Integer direction() {
-    return directions.get(0);
+  public String getDirection() {
+    if (!directions.isEmpty()) {
+      String direction = directions.get(0);
+      directions.remove(0);
+      return direction;
+    } else {
+      return "EMPTY";
+    }
   }
 
-  public void removeDirection() {
-    directions.remove(0);
+  public void usedDirection(String dir) {
+    usedDirections.add(dir);
+  }
+
+  public ArrayList<String> getUsedDirections() {
+    return usedDirections;
   }
 }
