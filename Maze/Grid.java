@@ -140,12 +140,12 @@ public class Grid extends JPanel implements ActionListener {
     mazeColor = generator.getMazeColor();
   } else { // Maze has finished generating (start solving)
     // call solving algorithm
-    //System.out.println(cy);
-    solve.move(solve.DFS());
-    cx = solve.getCurrentX();
-    cy = solve.getCurrentY();
-    //System.out.println(cy);
-    System.out.println(solve.DFS());
+    // //System.out.println(cy);
+    // solve.move(solve.DFS());
+    // cx = solve.getCurrentX();
+    // cy = solve.getCurrentY();
+    // //System.out.println(cy);
+    // System.out.println(solve.DFS());
   }
     repaint();
   }
