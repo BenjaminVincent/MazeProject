@@ -6,7 +6,7 @@ public class Solver {
   private Cell[][] mazeGrid;
   private String dir;
   private Cell current;
-  private Stack stack;
+  private Stack<Cell> stack;
   private ArrayList<String> directions = new ArrayList<String>();
 
   public Solver(Cell[][] mazeGrid, int cx, int cy) {
@@ -36,10 +36,11 @@ public class Solver {
 
   public boolean checkMove(String dir, ArrayList<String> a) {
     for (int i = 0; i < a.size(); i++) {
-      if (a.get(i).equals(dir)) return true;
-      } else {
-        return false;
-      }
+      if (a.get(i).equals(dir)) {
+        return true;
+      } 
+    }
+    return false;
   }
 
   public String DFS() {
