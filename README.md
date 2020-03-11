@@ -1,5 +1,5 @@
 # Maze Generator
-This is a project designed to practice: algorithm implementation, programming in Java, and producing standalone applications <br />
+This is a project designed to practice: algorithm implementation, programming in Java, and producing standalone applications 
 
 # Contributers
 - Benjamin Vincent (BenjaminVincent)
@@ -7,12 +7,12 @@ This is a project designed to practice: algorithm implementation, programming in
 
 ## Run
 
-Compile all files with `javac *.java`.
+Compile all files with `javac *.java`.<br />
 Run the program with `java Maze.java`.
 
 ## Stack:
-Java,
-Swing
+- Java
+- Swing
 
 ## Screenshots
 
